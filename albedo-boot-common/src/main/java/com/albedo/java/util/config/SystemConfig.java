@@ -163,7 +163,7 @@ public class SystemConfig {
             props = new java.util.Properties();
         }
         PathMatchingResourcePatternResolver resourceLoader = new PathMatchingResourcePatternResolver();
-        InputStream is = resourceLoader.getResources(PublicUtil.isEmpty(path) ? "/global.properties" : path)[0].getInputStream();
+        InputStream is = resourceLoader.getResources(PublicUtil.isEmpty(path) ? "/albedo.properties" : path)[0].getInputStream();
         // in
         // the
         // classpath
