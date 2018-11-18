@@ -99,7 +99,7 @@ public class OrgResourceIntTest {
         MockitoAnnotations.initMocks(this);
         final OrgResource orgResource = new OrgResource(orgService);
         this.restOrgMockMvc = MockMvcBuilders.standaloneSetup(orgResource)
-            .addPlaceholderValue("albedo.adminPath", applicationProperties.getAdminPath())
+            .addPlaceholderValue("application.adminPath", applicationProperties.getAdminPath())
 //            .setCustomArgumentResolvers(pageableArgumentResolver)
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())

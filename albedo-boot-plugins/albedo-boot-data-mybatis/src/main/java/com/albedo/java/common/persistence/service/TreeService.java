@@ -42,12 +42,12 @@ public abstract class TreeService<Repository extends TreeRepository<T, PK>, T ex
 
     public List<T> findAllByParentIdsLike(String parentIds){
         return repository.findRelationList(
-            new QueryWrapper<T>().like(getClassNameProfix()+TreeEntity.F_SQL_PARENTIDS, parentIds));
+            new QueryWrapper<T>().like(getClassNameProfix(TreeEntity.F_SQL_PARENTIDS), parentIds));
     }
 
     public List<T> findAllByParentIdAndStatusNot(String parentId, Integer status){
         return repository.findRelationList(
-            new QueryWrapper<T>().eq(getClassNameProfix()+TreeEntity.F_SQL_PARENTID, parentId).ne(getClassNameProfix()+TreeEntity.F_STATUS, status)
+            new QueryWrapper<T>().eq(getClassNameProfix(TreeEntity.F_SQL_PARENTID), parentId).ne(getClassNameProfix()+TreeEntity.F_STATUS, status)
         );
 
     }
@@ -67,19 +67,19 @@ public abstract class TreeService<Repository extends TreeRepository<T, PK>, T ex
     public List<T> findAllByStatusOrderBySort(Integer status) {
         return repository.findRelationList(
             new QueryWrapper<T>().eq(getClassNameProfix()+TreeEntity.F_SQL_STATUS, status)
-                .orderByAsc(getClassNameProfix()+TreeEntity.F_SQL_SORT)
+                .orderByAsc(getClassNameProfix(TreeEntity.F_SQL_SORT))
         );
     }
     public List<T> findAllByStatusNotOrderBySort(Integer status){
         return repository.findRelationList(
             new QueryWrapper<T>().ne(getClassNameProfix()+TreeEntity.F_SQL_STATUS, status)
-                .orderByAsc(getClassNameProfix()+TreeEntity.F_SQL_SORT)
+                .orderByAsc(getClassNameProfix(TreeEntity.F_SQL_SORT))
         );
     }
     public List<T> findAllByIdOrParentIdsLike(PK id, String likeParentIds){
         return repository.findRelationList(
             new QueryWrapper<T>().eq(getClassNameProfix()+TreeEntity.F_SQL_PARENTIDS, likeParentIds).or()
-                .eq(getClassNameProfix()+TreeEntity.F_SQL_ID, id)
+                .eq(getClassNameProfix(TreeEntity.F_SQL_ID), id)
         );
     }
     /**

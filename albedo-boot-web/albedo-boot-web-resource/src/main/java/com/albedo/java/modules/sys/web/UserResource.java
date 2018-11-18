@@ -75,7 +75,7 @@ import java.util.stream.Collectors;
  * @author somewhere
  */
 @Controller
-@RequestMapping("${albedo.adminPath}/sys/user")
+@RequestMapping("${application.adminPath}/sys/user")
 public class UserResource extends DataVoResource<UserService, UserVo> {
 
 

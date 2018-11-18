@@ -35,7 +35,7 @@ import java.util.stream.Collectors;
  * @author somewhere
  */
 @Controller
-@RequestMapping(value = "${albedo.adminPath}/file")
+@RequestMapping(value = "${application.adminPath}/file")
 public class FileResource extends BaseResource {
 
 

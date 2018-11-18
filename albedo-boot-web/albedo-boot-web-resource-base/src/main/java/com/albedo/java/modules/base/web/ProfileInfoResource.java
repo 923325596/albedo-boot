@@ -17,7 +17,7 @@ import java.util.List;
  * @author somewhere
  */
 @RestController
-@RequestMapping("${albedo.adminPath}")
+@RequestMapping("${application.adminPath}")
 public class ProfileInfoResource {
 
     private Environment environment;

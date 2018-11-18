@@ -30,7 +30,7 @@ import javax.validation.Valid;
  * @author somewhere
  */
 @Controller
-@RequestMapping("${albedo.adminPath}/sys/role")
+@RequestMapping("${application.adminPath}/sys/role")
 public class RoleResource extends DataVoResource<RoleService, RoleVo> {
 
     public RoleResource(RoleService service) {

@@ -35,7 +35,7 @@ import javax.validation.Valid;
  * @version ${functionVersion}
  */
 @Controller
-@RequestMapping(value = "${r"${albedo.adminPath}"}/${urlPrefix}")
+@RequestMapping(value = "${r"${application.adminPath}"}/${urlPrefix}")
 public class ${ClassName}Resource extends DataVoResource<${ClassName}Service, ${ClassName}Vo> {
 
     public ${ClassName}Resource(${ClassName}Service service) {

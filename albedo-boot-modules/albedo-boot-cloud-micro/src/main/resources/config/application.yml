@@ -144,7 +144,7 @@ albedo:
     mail:
         from: AlbedoBootCloudMicro@localhost
     swagger:
-        default-include-pattern: ${albedo.adminPath}/.*
+        default-include-pattern: ${application.adminPath}/.*
         title: AlbedoBootCloudMicro API
         description: AlbedoBootCloudMicro API documentation
         version: 0.0.1

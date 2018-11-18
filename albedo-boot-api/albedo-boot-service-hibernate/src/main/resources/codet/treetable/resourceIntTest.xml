@@ -130,7 +130,7 @@ public class ${ClassName}ResourceIntTest {
         MockitoAnnotations.initMocks(this);
         final ${ClassName}Resource ${className}Resource = new ${ClassName}Resource(${className}Service);
         this.rest${ClassName}MockMvc = MockMvcBuilders.standaloneSetup(${className}Resource)
-            .addPlaceholderValue("albedo.adminPath", albedoProperties.getAdminPath())
+            .addPlaceholderValue("application.adminPath", albedoProperties.getAdminPath())
             .setControllerAdvice(exceptionTranslator)
             .setConversionService(createFormattingConversionService())
             .setMessageConverters(jacksonMessageConverter)

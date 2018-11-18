@@ -1,6 +1,6 @@
 package com.albedo.java.modules.gen.web;
 
-import com.albedo.java.common.security.AuthoritiesConstants;
+import com.albedo.java.common.AuthoritiesConstants;
 import com.albedo.java.common.security.SecurityUtil;
 import com.albedo.java.modules.gen.service.GenSchemeService;
 import com.albedo.java.modules.gen.service.GenTableService;
@@ -32,14 +32,15 @@ import java.util.Map;
  * @author somewhere
  */
 @Controller
-@RequestMapping(value = "${albedo.adminPath}/gen/genScheme")
+@RequestMapping(value = "${application.adminPath}/gen/genScheme")
 public class GenSchemeResource extends DataVoResource<GenSchemeService, GenSchemeVo> {
 
     private final GenTableService genTableService;
 
     private final ModuleService moduleService;
 
-    public GenSchemeResource(GenSchemeService genSchemeService, GenTableService genTableService, ModuleService moduleService) {
+    public GenSchemeResource(GenSchemeService genSchemeService, GenTableService genTableService,
+                             ModuleService moduleService) {
         super(genSchemeService);
         this.genTableService = genTableService;
         this.moduleService = moduleService;
@@ -63,7 +64,7 @@ public class GenSchemeResource extends DataVoResource<GenSchemeService, GenSchem
         return ResultBuilder.buildOk(formData);
     }
 
-    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     @Timed
     public ResponseEntity save(@Valid @RequestBody GenSchemeVo genSchemeVo) {
         service.save(genSchemeVo);
@@ -74,7 +75,7 @@ public class GenSchemeResource extends DataVoResource<GenSchemeService, GenSchem
                 genTableVo = genTableService.findOneVo(genSchemeVo.getGenTableId());
             }
             String url = PublicUtil.toAppendStr("/", StringUtil.lowerCase(genSchemeVo.getModuleName()), (StringUtil.isNotBlank(genSchemeVo.getSubModuleName()) ? "/" + StringUtil.lowerCase(genSchemeVo.getSubModuleName()) : ""), "/",
-                    StringUtil.uncapitalize(genTableVo.getClassName()), "/");
+                StringUtil.uncapitalize(genTableVo.getClassName()), "/");
             moduleService.generatorModuleData(genSchemeVo.getName(), genSchemeVo.getParentModuleId(), url);
             SecurityUtil.clearUserJedisCache();
         }
@@ -86,7 +87,7 @@ public class GenSchemeResource extends DataVoResource<GenSchemeService, GenSchem
     }
 
     @PutMapping(value = "/{ids:" + Globals.LOGIN_REGEX
-            + "}")
+        + "}")
     @Timed
     public ResponseEntity lockOrUnLock(@PathVariable String ids) {
         log.debug("REST request to lockOrUnLock genTable: {}", ids);
@@ -96,7 +97,7 @@ public class GenSchemeResource extends DataVoResource<GenSchemeService, GenSchem
     }
 
     @DeleteMapping(value = "/{ids:" + Globals.LOGIN_REGEX
-            + "}")
+        + "}")
     @Timed
     @Secured(AuthoritiesConstants.ADMIN)
     public ResponseEntity delete(@PathVariable String ids) {

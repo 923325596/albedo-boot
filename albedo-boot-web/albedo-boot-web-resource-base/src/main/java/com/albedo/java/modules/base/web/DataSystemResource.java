@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  * Controller for view and managing Log Level at runtime.
  */
 @RestController
-@RequestMapping("${albedo.adminPath}/dataSystem")
+@RequestMapping("${application.adminPath}/dataSystem")
 public class DataSystemResource {
 
     private ModuleService moduleService;

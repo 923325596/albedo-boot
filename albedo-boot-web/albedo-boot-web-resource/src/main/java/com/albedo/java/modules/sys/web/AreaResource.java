@@ -30,7 +30,7 @@ import java.util.List;
  * @version 2017-11-10
  */
 @Controller
-@RequestMapping(value = "${albedo.adminPath}/sys/area")
+@RequestMapping(value = "${application.adminPath}/sys/area")
 public class AreaResource extends TreeVoResource<AreaService, AreaVo> {
 
     public AreaResource(AreaService service) {

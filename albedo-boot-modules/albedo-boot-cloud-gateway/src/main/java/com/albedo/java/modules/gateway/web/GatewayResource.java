@@ -21,7 +21,7 @@ import java.util.List;
  * REST controller for managing Gateway configuration.
  */
 @RestController
-@RequestMapping("${albedo.adminPath}/gateway")
+@RequestMapping("${application.adminPath}/gateway")
 public class GatewayResource {
 
     private final Logger log = LoggerFactory.getLogger(GatewayResource.class);

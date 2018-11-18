@@ -31,7 +31,7 @@ import javax.validation.Valid;
  * @author somewhere
  */
 @Controller
-@RequestMapping("${albedo.adminPath}/sys/org")
+@RequestMapping("${application.adminPath}/sys/org")
 public class OrgResource extends TreeVoResource<OrgService, OrgVo> {
 
     public OrgResource(OrgService service) {

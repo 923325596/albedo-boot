@@ -29,7 +29,7 @@ import java.net.URISyntaxException;
  * @author somewhere
  */
 @Controller
-@RequestMapping(value = "${albedo.adminPath}/gen/genTemplate")
+@RequestMapping(value = "${application.adminPath}/gen/genTemplate")
 public class GenTemplateResource extends DataResource<GenTemplateService, GenTemplate> {
 
 

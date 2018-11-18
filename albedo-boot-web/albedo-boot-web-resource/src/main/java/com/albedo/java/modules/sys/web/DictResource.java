@@ -31,7 +31,7 @@ import java.net.URISyntaxException;
  * @author somewhere
  */
 @Controller
-@RequestMapping("${albedo.adminPath}/sys/dict")
+@RequestMapping("${application.adminPath}/sys/dict")
 public class DictResource extends TreeVoResource<DictService, DictVo> {
 
     public DictResource(DictService service) {

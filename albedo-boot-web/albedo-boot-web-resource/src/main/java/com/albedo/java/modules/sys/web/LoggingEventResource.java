@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @version 2017-01-03
  */
 @Controller
-@RequestMapping(value = "${albedo.adminPath}/sys/loggingEvent")
+@RequestMapping(value = "${application.adminPath}/sys/loggingEvent")
 public class LoggingEventResource extends BaseResource {
 
 

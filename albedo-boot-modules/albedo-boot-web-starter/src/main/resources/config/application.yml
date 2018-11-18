@@ -99,7 +99,7 @@ application:
     mail:
         from: albedoBootWebApp@localhost
     swagger:
-        default-include-pattern: ${albedo.adminPath}/.*
+        default-include-pattern: ${application.adminPath}/.*
         title: albedoBootWebApp API
         description: albedoBootWebApp API documentation
         version: 0.0.1

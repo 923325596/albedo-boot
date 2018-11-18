@@ -33,7 +33,7 @@ import java.util.Map;
  * @author somewhere
  */
 @Controller
-@RequestMapping(value = "${albedo.adminPath}/gen/genTable")
+@RequestMapping(value = "${application.adminPath}/gen/genTable")
 public class GenTableResource extends DataVoResource<GenTableService, GenTableVo> {
 
     public GenTableResource(GenTableService service) {

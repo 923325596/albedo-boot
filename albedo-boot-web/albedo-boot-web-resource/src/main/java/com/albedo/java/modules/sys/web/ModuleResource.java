@@ -32,7 +32,7 @@ import javax.validation.Valid;
  * REST controller for managing Station.
  */
 @Controller
-@RequestMapping("${albedo.adminPath}/sys/module")
+@RequestMapping("${application.adminPath}/sys/module")
 public class ModuleResource extends TreeVoResource<ModuleService, ModuleVo> {
 
     public ModuleResource(ModuleService service) {

@@ -44,18 +44,18 @@ public class GeneralResource {
     /**
      * 1 管理基础路径
      */
-    @Value("${albedo.adminPath}")
+    @Value("${application.adminPath}")
     protected String adminPath;
 
     /**
      * 前端基础路径
      */
-    @Value("${albedo.frontPath}")
+    @Value("${application.frontPath}")
     protected String frontPath;
     /**
      * 前端URL后缀
      */
-    @Value("${albedo.urlSuffix}")
+    @Value("${application.urlSuffix}")
     protected String urlSuffix;
     /**
      * 验证Bean实例对象

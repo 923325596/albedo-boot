@@ -40,7 +40,7 @@ import java.util.List;
  * @version ${functionVersion}
  */
 @Controller
-@RequestMapping(value = "${r"${albedo.adminPath}"}/${urlPrefix}")
+@RequestMapping(value = "${r"${application.adminPath}"}/${urlPrefix}")
 public class ${ClassName}Resource extends TreeVoResource<${ClassName}Service, ${ClassName}Vo> {
     public ${ClassName}Resource(${ClassName}Service service) {
         super(service);
