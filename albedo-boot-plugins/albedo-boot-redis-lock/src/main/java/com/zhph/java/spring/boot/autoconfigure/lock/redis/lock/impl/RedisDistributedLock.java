@@ -1,7 +1,7 @@
-package com.zhph.java.spring.boot.autoconfigure.lock.redis.lock.impl;
+package com.albedo.java.spring.boot.autoconfigure.lock.redis.lock.impl;
 
-import com.zhph.java.spring.boot.autoconfigure.lock.redis.lock.AbstractDistributedLock;
-import com.zhph.java.spring.boot.autoconfigure.lock.redis.lock.RedisLockInfo;
+import com.albedo.java.spring.boot.autoconfigure.lock.redis.lock.AbstractDistributedLock;
+import com.albedo.java.spring.boot.autoconfigure.lock.redis.lock.RedisLockInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.core.RedisTemplate;

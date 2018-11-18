@@ -77,7 +77,7 @@ server:
         min-response-size: 1024
 
 logging:
-    path: /opt/tomcat8/logs/ua-loan/ua-loan-web
+    path: /opt/tomcat8/logs/albedo-boot/albedo-boot-web
 # ===================================================================
 # Albedo specific properties
 # ===================================================================

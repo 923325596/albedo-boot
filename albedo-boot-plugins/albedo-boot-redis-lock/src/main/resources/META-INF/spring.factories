@@ -1,4 +1,4 @@
 # Auto Configure
 org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
-com.zhph.java.spring.boot.autoconfigure.lock.redis.DistributedLockAutoConfiguration,\
-com.zhph.java.spring.boot.autoconfigure.lock.redis.DistributedLockAspectConfiguration
+com.albedo.java.spring.boot.autoconfigure.lock.redis.DistributedLockAutoConfiguration,\
+com.albedo.java.spring.boot.autoconfigure.lock.redis.DistributedLockAspectConfiguration

@@ -3,13 +3,13 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>ua-loan-plugins</artifactId>
-        <groupId>com.zhph.java</groupId>
-        <version>1.0.0-SNAPSHOT</version>
+        <artifactId>albedo-boot-plugins</artifactId>
+        <groupId>com.albedo.java</groupId>
+        <version>1.3.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>ua-loan-redis-lock</artifactId>
+    <artifactId>albedo-boot-redis-lock</artifactId>
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

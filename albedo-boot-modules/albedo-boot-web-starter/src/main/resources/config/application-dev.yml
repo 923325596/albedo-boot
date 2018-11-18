@@ -58,7 +58,7 @@ server:
 #        class-name: org.apache.jasper.servlet.JspServlet
 
 logging:
-    path: .log/ua-loan-web
+    path: .log/albedo-boot-web
 
 
 # ===================================================================

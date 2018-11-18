@@ -29,7 +29,7 @@
     <logger name="liquibase" level="WARN"/>
     <logger name="LiquibaseSchemaResolver" level="INFO"/>
     <logger name="sun.rmi.transport" level="WARN"/>
-    <springProperty scop="context" name="logging.path" source="logging.path" defaultValue="/opt/tomcat8/logs/ua-loan/ua-loan-web"/>
+    <springProperty scop="context" name="logging.path" source="logging.path" defaultValue="/opt/tomcat8/logs/albedo-boot/albedo-boot-web"/>
     <property name="LOG_PATH" value="${logging.path}"/>
     <!--
           说明：

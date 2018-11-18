@@ -1,10 +1,10 @@
-package com.zhph.java.spring.boot.autoconfigure.lock.redis;
+package com.albedo.java.spring.boot.autoconfigure.lock.redis;
 
 import java.lang.reflect.Method;
 
-import com.zhph.java.spring.boot.autoconfigure.lock.redis.annotations.LockAction;
-import com.zhph.java.spring.boot.autoconfigure.lock.redis.lock.DistributedLock;
-import com.zhph.java.spring.boot.autoconfigure.lock.redis.lock.RedisLockInfo;
+import com.albedo.java.spring.boot.autoconfigure.lock.redis.annotations.LockAction;
+import com.albedo.java.spring.boot.autoconfigure.lock.redis.lock.DistributedLock;
+import com.albedo.java.spring.boot.autoconfigure.lock.redis.lock.RedisLockInfo;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -42,7 +42,7 @@ public class DistributedLockAspectConfiguration {
 
 	private LocalVariableTableParameterNameDiscoverer discoverer = new LocalVariableTableParameterNameDiscoverer();
 
-	@Pointcut("@annotation(com.zhph.java.spring.boot.autoconfigure.lock.redis.annotations.LockAction)")
+	@Pointcut("@annotation(com.albedo.java.spring.boot.autoconfigure.lock.redis.annotations.LockAction)")
 	private void lockPoint(){
 		
 	}

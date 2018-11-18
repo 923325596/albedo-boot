@@ -1,4 +1,4 @@
-package com.zhph.java.spring.boot.autoconfigure.lock.redis.lock;
+package com.albedo.java.spring.boot.autoconfigure.lock.redis.lock;
 
 /**
  * @author lijie

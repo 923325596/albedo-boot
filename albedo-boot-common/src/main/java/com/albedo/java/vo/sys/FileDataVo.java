@@ -1,5 +1,5 @@
 /**
- * Copyright &copy; 2018 <a href="https://github.com/somewhereMrli/ua-loan">ua-loan</a> All rights reserved.
+ * Copyright &copy; 2018 <a href="https://github.com/somewhereMrli/albedo-boot">albedo-boot</a> All rights reserved.
  */
 package com.albedo.java.vo.sys;
 

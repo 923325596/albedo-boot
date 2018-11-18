@@ -1,4 +1,4 @@
-package com.zhph.java.spring.boot.autoconfigure.lock.redis.annotations;
+package com.albedo.java.spring.boot.autoconfigure.lock.redis.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
