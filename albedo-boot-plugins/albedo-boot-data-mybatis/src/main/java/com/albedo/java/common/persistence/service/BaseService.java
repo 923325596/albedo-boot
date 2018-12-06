@@ -73,7 +73,7 @@ public abstract class BaseService<Repository extends BaseRepository<T, pk>,
 
     public String getClassNameProfix(){
         if (persistentClass!=null && PublicUtil.isEmpty(classNameProfix)){
-            classNameProfix =  String.format(applicationProperties.getIdentifierQuote(), StringUtil.toFirstLowerCase(persistentClass.getSimpleName()))+".";
+            classNameProfix =  StringUtil.toFirstLowerCase(persistentClass.getSimpleName())+".";
         }
         return classNameProfix;
     }

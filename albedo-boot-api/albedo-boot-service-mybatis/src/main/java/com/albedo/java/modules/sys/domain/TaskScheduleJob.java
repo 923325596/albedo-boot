@@ -35,9 +35,9 @@ public class TaskScheduleJob extends IdEntity<TaskScheduleJob, String> {
      */
     public static final String F_NAME = "name";
     /**
-     * F_JOBGROUP job_group : 分组
+     * F_GROUP group : 分组
      */
-    public static final String F_JOBGROUP = "jobGroup";
+    public static final String F_GROUP = "group";
     /**
      * F_STARTSTATUS start_status : 是否启动
      */
@@ -91,8 +91,8 @@ public class TaskScheduleJob extends IdEntity<TaskScheduleJob, String> {
      * group 分组
      */
     @Size(max = 255)
-    @TableField("job_group")
-    private String jobGroup;
+    @TableField("group_")
+    private String group;
     /**
      * jobStatus 任务状态
      */

@@ -235,7 +235,7 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
             return;
         }
 
-        TriggerKey triggerKey = TriggerKey.triggerKey(job.getName(), job.getJobGroup());
+        TriggerKey triggerKey = TriggerKey.triggerKey(job.getName(), job.getGroup());
 
         CronTrigger trigger = null;
         try {
@@ -246,10 +246,10 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
                 Class clazz = SystemConfig.YES.equals(job.getIsConcurrent()) ? QuartzJobFactory.class
                         : QuartzJobFactoryDisallowConcurrentExecution.class;
 
-                JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(job.getName(), job.getJobGroup()).build();
+                JobDetail jobDetail = JobBuilder.newJob(clazz).withIdentity(job.getName(), job.getGroup()).build();
                 jobDetail.getJobDataMap().put("taskScheduleJob", job);
                 CronScheduleBuilder scheduleBuilder = CronScheduleBuilder.cronSchedule(job.getCronExpression());
-                trigger = TriggerBuilder.newTrigger().withIdentity(job.getName(), job.getJobGroup())
+                trigger = TriggerBuilder.newTrigger().withIdentity(job.getName(), job.getGroup())
                         .withSchedule(scheduleBuilder).build();
                 scheduler.scheduleJob(jobDetail, trigger);
 
@@ -285,7 +285,7 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
                 for (Trigger trigger : triggers) {
                     TaskScheduleJob job = new TaskScheduleJob();
                     job.setName(jobKey.getName());
-                    job.setJobGroup(jobKey.getGroup());
+                    job.setGroup(jobKey.getGroup());
                     job.setDescription("触发器:" + trigger.getKey());
                     Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
                     job.setJobStatus(triggerState.name());
@@ -322,7 +322,7 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
                 JobKey jobKey = jobDetail.getKey();
                 Trigger trigger = executingJob.getTrigger();
                 job.setName(jobKey.getName());
-                job.setJobGroup(jobKey.getGroup());
+                job.setGroup(jobKey.getGroup());
                 job.setDescription("触发器:" + trigger.getKey());
                 Trigger.TriggerState triggerState = scheduler.getTriggerState(trigger.getKey());
                 job.setJobStatus(triggerState.name());
@@ -348,7 +348,7 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
      * albedo.java.modules.sys.domain.TaskScheduleJob)
      */
     public void pauseJob(TaskScheduleJob scheduleJob) {
-        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getJobGroup());
+        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getGroup());
         log.info("pauseJob {}", jobKey);
         try {
             scheduler.pauseJob(jobKey);
@@ -366,7 +366,7 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
      * .albedo.java.modules.sys.domain.TaskScheduleJob)
      */
     public void resumeJob(TaskScheduleJob scheduleJob) {
-        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getJobGroup());
+        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getGroup());
         log.info("resumeJob {}", jobKey);
         try {
             scheduler.resumeJob(jobKey);
@@ -394,7 +394,7 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
      * .albedo.java.modules.sys.domain.TaskScheduleJob)
      */
     public void deleteJob(TaskScheduleJob scheduleJob) {
-        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getJobGroup());
+        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getGroup());
         log.info("deleteJob {}", jobKey);
         try {
             scheduler.deleteJob(jobKey);
@@ -412,7 +412,7 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
      * com.albedo.java.modules.sys.domain.TaskScheduleJob)
      */
     public void runAJobNow(TaskScheduleJob scheduleJob) {
-        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getJobGroup());
+        JobKey jobKey = JobKey.jobKey(scheduleJob.getName(), scheduleJob.getGroup());
         log.info("runAJobNow {}", jobKey);
         try {
             scheduler.triggerJob(jobKey);
@@ -430,7 +430,7 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
      */
     public void updateJobCron(TaskScheduleJob taskScheduleJob) {
         try {
-            TriggerKey triggerKey = TriggerKey.triggerKey(taskScheduleJob.getName(), taskScheduleJob.getJobGroup());
+            TriggerKey triggerKey = TriggerKey.triggerKey(taskScheduleJob.getName(), taskScheduleJob.getGroup());
 
             CronTrigger trigger = (CronTrigger) scheduler.getTrigger(triggerKey);
 
