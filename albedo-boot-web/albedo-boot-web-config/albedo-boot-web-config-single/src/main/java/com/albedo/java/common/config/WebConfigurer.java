@@ -127,6 +127,7 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
         }
     }
     private void setLocationForStaticAssets(WebServerFactory server) {
+        log.info("server:"+server);
         if (server instanceof ConfigurableServletWebServerFactory) {
             ConfigurableServletWebServerFactory servletWebServer = (ConfigurableServletWebServerFactory) server;
             File root;
