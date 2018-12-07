@@ -9,15 +9,8 @@ import com.albedo.java.util.base.Assert;
 import com.albedo.java.vo.sys.query.TreeQuery;
 import com.albedo.java.vo.sys.query.TreeResult;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.sql.SqlHelper;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import com.google.common.collect.Lists;
-import com.albedo.java.common.persistence.domain.BaseEntity;
-import com.albedo.java.common.persistence.domain.TreeEntity;
-import com.albedo.java.common.persistence.repository.TreeRepository;
-import com.albedo.java.util.PublicUtil;
-import com.albedo.java.util.base.Assert;
-import com.albedo.java.vo.sys.query.TreeQuery;
-import com.albedo.java.vo.sys.query.TreeResult;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
@@ -27,6 +20,7 @@ import java.util.List;
 @Transactional
 public abstract class TreeService<Repository extends TreeRepository<T, PK>, T extends TreeEntity, PK extends Serializable>
     extends DataService<Repository, T, PK> {
+
 
     @Transactional(readOnly = true, rollbackFor = Exception.class)
     public T findTreeOne(Serializable id) {

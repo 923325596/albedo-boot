@@ -18,6 +18,7 @@ import com.albedo.java.web.rest.ResultBuilder;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -79,26 +80,18 @@ public class DataSystemResource {
         }
         return ResultBuilder.buildOk(map);
     }
+    /**
+     * 获取字典数据
+     * @param codes
+     * @return
+     */
+    @ApiOperation(value = "获取字典数据", notes = "code 不传获取所有的业务字典，多个用','隔开")
     @GetMapping(value = "dict/codes")
-    public ResponseEntity codes(String codes) {
-
-        List<List<ComboData>> rsList = Lists.newArrayList();
-        if(PublicUtil.isNotEmpty(codes)){
-            String[] codeArray = codes.split(",");
-            for(String code : codeArray){
-                List<Dict> dictList = DictUtil.getDictListFilterVal(code, null);
-                List<ComboData> dataList = Lists.newArrayList();
-                if (PublicUtil.isNotEmpty(dictList)) {
-                    dictList.forEach(item -> dataList.add(Reflections.createObj(ComboData.class,
-                        Lists.newArrayList(ComboData.F_VALUE, ComboData.F_LABEL), item.getVal(), item.getName())));
-                }
-                if(PublicUtil.isNotEmpty(dataList)){
-                    rsList.add(dataList);
-                }
-            }
-        }
-        return ResultBuilder.buildOk(rsList);
+    public ResponseEntity find(String codes) {
+        Map<String,List<SelectResult>> map = dictService.findCodes(codes);
+        return ResultBuilder.buildOk(map);
     }
+
     @GetMapping(value = "org/findTreeData")
     public ResponseEntity findTreeData(OrgTreeQuery orgTreeQuery) {
         List<TreeResult> treeResultList = orgService.findTreeData(orgTreeQuery, SecurityUtil.getOrgList());

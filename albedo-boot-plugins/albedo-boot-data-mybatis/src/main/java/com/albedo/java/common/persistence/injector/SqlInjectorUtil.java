@@ -22,11 +22,63 @@ import java.util.Iterator;
 import java.util.List;
 
 public class SqlInjectorUtil {
+
+    protected enum CustomDbType{
+        MYSQL("mysql", "`%s`", "MySql数据库"),
+        MARIADB("mariadb", "`%s`", "MariaDB数据库"),
+        ORACLE("oracle", "\"%s\"", "Oracle数据库"),
+        DB2("db2", "\"%s\"", "DB2数据库"),
+        H2("h2", "%s", "H2数据库"),
+        HSQL("hsql", "%s", "HSQL数据库"),
+        SQLITE("sqlite", "%s", "SQLite数据库"),
+        POSTGRE_SQL("postgresql", "%s", "Postgre数据库"),
+        SQL_SERVER2005("sqlserver2005", "%s", "SQLServer2005数据库"),
+        SQL_SERVER("sqlserver", "%s", "SQLServer数据库"),
+        DM("dm", "\"%s\"", "达梦数据库"),
+        OTHER("other", "\"%s\"", "其他数据库");
+
+        private final String db;
+        private final String quote;
+        private final String desc;
+
+        public String getDb() {
+            return db;
+        }
+
+        public String getQuote() {
+            return quote;
+        }
+
+        public String getDesc() {
+            return desc;
+        }
+
+        private CustomDbType(String db, String quote, String desc) {
+            this.db = db;
+            this.quote = quote;
+            this.desc = desc;
+        }
+
+        public static CustomDbType getDbType(String dbType) {
+            CustomDbType[] dts = values();
+            CustomDbType[] var2 = dts;
+            int var3 = dts.length;
+
+            for(int var4 = 0; var4 < var3; ++var4) {
+                CustomDbType dt = var2[var4];
+                if (dt.getDb().equalsIgnoreCase(dbType)) {
+                    return dt;
+                }
+            }
+
+            return OTHER;
+        }
+    }
+
     public static String sqlWordConvert(Configuration configuration, String column) {
         GlobalConfig globalConfig = GlobalConfigUtils.getGlobalConfig(configuration);
         DbType dbType = globalConfig.getDbConfig().getDbType();
-        String identifierQuote = (DbType.H2.equals(dbType)? DbType.MYSQL : dbType).getQuote();
-        return null != identifierQuote ? String.format(identifierQuote, column) : column;
+        return String.format(CustomDbType.getDbType(dbType.getDb()).getQuote(), column);
     }
 
     public static String sqlSelectColumns(Configuration configuration, TableInfo table, boolean entityWrapper, String columnPrefix, String selectProfix) {
@@ -59,11 +111,7 @@ public class SqlInjectorUtil {
                 if(PublicUtil.isNotEmpty(selectProfix)){
                     keyProperty = selectProfix+"."+keyProperty;
                 }
-                if (table.isKeyRelated()) {
-                    columns.append(table.getKeyColumn()).append(" AS ").append(sqlWordConvert(configuration,keyProperty));
-                } else {
-                    columns.append(sqlWordConvert(configuration,keyProperty));
-                }
+                columns.append(table.getKeyColumn()).append(" AS ").append(sqlWordConvert(configuration,keyProperty));
 
                 if (size >= 1) {
                     columns.append(",");
@@ -83,12 +131,8 @@ public class SqlInjectorUtil {
                     if(PublicUtil.isNotEmpty(columnPrefix)){
                         columns.append(columnPrefix).append(".");
                     }
-                    if (fieldInfo.getColumn().equals(wordConvert)) {
-                        columns.append(wordConvert);
-                    } else {
-                        columns.append(fieldInfo.getColumn());
-                        columns.append(" AS ").append(wordConvert);
-                    }
+                    columns.append(fieldInfo.getColumn());
+                    columns.append(" AS ").append(wordConvert);
 
                     if (i + 1 < size) {
                         columns.append(",");

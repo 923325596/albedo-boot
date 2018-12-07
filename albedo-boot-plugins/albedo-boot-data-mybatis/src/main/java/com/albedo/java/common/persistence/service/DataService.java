@@ -15,11 +15,10 @@ import com.albedo.java.util.domain.ComboSearch;
 import com.albedo.java.util.domain.PageModel;
 import com.albedo.java.util.domain.QueryCondition;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.sql.SqlHelper;
+import com.baomidou.mybatisplus.extension.toolkit.SqlHelper;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -85,7 +84,4 @@ public abstract class DataService<Repository extends BaseRepository<T, PK>, T ex
         return findPage(pm, specificationDetail);
     }
 
-    public List<ComboData> findJson(ComboSearch comboSearch) {
-        return jpaCustomeRepository.findJson(comboSearch);
-    }
 }

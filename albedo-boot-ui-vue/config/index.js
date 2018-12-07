@@ -8,8 +8,8 @@ var baseUrl = 'http://192.168.6.21:8071';
 module.exports = {
   build: {
     env: require('./prod.env'),
-    index: path.resolve(__dirname, '../dist/index.html'),
-    assetsRoot: path.resolve(__dirname, '../dist'),
+    index: path.resolve(__dirname, '../target/dist/index.html'),
+    assetsRoot: path.resolve(__dirname, '../target/dist'),
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     productionSourceMap: false,

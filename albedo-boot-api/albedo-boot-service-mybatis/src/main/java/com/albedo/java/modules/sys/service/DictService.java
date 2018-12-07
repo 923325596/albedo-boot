@@ -61,25 +61,6 @@ public class DictService extends TreeVoService<DictRepository, Dict, String, Dic
         return mapList;
     }
 
-//    @Transactional(readOnly = true, rollbackFor = Exception.class)
-//    public List<Map<String, Object>> findTreeData(DictTreeQuery dictTreeQuery, List<Dict> dictList) {
-//        String type = dictTreeQuery != null ? dictTreeQuery.getType() : null, all = dictTreeQuery != null ? dictTreeQuery.getAll() : null;
-//        List<Map<String, Object>> mapList = Lists.newArrayList();
-//        for (Dict e : dictList) {
-//            if ((all != null || (all == null && BaseEntity.FLAG_NORMAL.equals(e.getStatus())))) {
-//                Map<String, Object> map = Maps.newHashMap();
-//                map.put("id", e.getId());
-//                map.put("pId", PublicUtil.isEmpty(e.getParentId()) ? "0" : e.getParentId());
-//                map.put("name", e.getName());
-//                mapList.add(map);
-//            }
-//        }
-//
-//
-//        return mapList;
-//    }
-
-
     public SelectResult copyBeanToSelect(Dict item) {
         SelectResult selectResult = new SelectResult(item.getVal(), item.getName(), item.getVersion());
         return selectResult;

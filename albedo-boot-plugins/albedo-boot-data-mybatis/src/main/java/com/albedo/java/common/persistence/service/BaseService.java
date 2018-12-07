@@ -10,7 +10,6 @@ import com.albedo.java.common.persistence.SpecificationDetail;
 import com.albedo.java.common.persistence.domain.BaseEntity;
 import com.albedo.java.common.persistence.domain.GeneralEntity;
 import com.albedo.java.common.persistence.repository.BaseRepository;
-import com.albedo.java.common.persistence.repository.JpaCustomeRepository;
 import com.albedo.java.util.PublicUtil;
 import com.albedo.java.util.QueryUtil;
 import com.albedo.java.util.StringUtil;
@@ -22,7 +21,6 @@ import com.albedo.java.util.domain.QueryCondition;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.sql.SqlHelper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -48,8 +46,6 @@ public abstract class BaseService<Repository extends BaseRepository<T, pk>,
     public final org.slf4j.Logger log = org.slf4j.LoggerFactory.getLogger(getClass());
     @Autowired
     public Repository repository;
-    @Autowired
-    public JpaCustomeRepository<T> jpaCustomeRepository;
     private Class<T> persistentClass;
     private String classNameProfix;
     @Autowired
@@ -301,7 +297,7 @@ public abstract class BaseService<Repository extends BaseRepository<T, pk>,
     public PageModel<T> findRelationPageWrapper(PageModel<T> pm, Wrapper<T> wrapper) {
         try {
             PageQuery<T> page = new PageQuery(pm);
-            page.setRecords(repository.findRelationPage(page, (Wrapper<T>) SqlHelper.fillWrapper(page, wrapper)));
+            page.setRecords(repository.findRelationPage(page, wrapper));
             pm.setData(page.getRecords());
             pm.setRecordsTotal(page.getTotal());
             return pm;

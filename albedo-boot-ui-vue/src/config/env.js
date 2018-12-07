@@ -19,7 +19,7 @@ let codeUrl = `/sys/code`
 if (process.env.NODE_ENV == 'development') {
   baseUrl = `http://localhost:8061/api`;
 } else if (process.env.NODE_ENV == 'production') {
-  baseUrl = `http://218.70.11.118`;
+  baseUrl = `http://localhost:8061/api`;
 }
 
 export {

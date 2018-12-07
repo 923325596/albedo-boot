@@ -176,7 +176,7 @@ public class AccoutResource extends BaseResource {
                 }else if(cacheObject > 9){
                     msg = "您密码错误次数已超过10次，您的账号将被暂时锁定24小时，建议点击‘忘记密码’，凭手机号码重置密码，24小时后再尝试登录";
                     cacheObject=0;
-                    RedisUtil.setCacheObject(AuthoritiesConstants.DEFAULT_LOGIN_AFTER_24_KEY +loginVo.getUsername(), DateUtil.addDays(PublicUtil.getCurrentDate(), 1), 1, TimeUnit.DAYS);
+//                    RedisUtil.setCacheObject(AuthoritiesConstants.DEFAULT_LOGIN_AFTER_24_KEY +loginVo.getUsername(), DateUtil.addDays(PublicUtil.getCurrentDate(), 1), 1, TimeUnit.DAYS);
                 }
                 RedisUtil.setCacheObject(keyLoginCount, 1+cacheObject);
             }
