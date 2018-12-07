@@ -134,6 +134,7 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
             if (PublicUtil.isEmpty(prefixPath)) {
                 prefixPath = DefaultProfileUtil.resolvePathPrefix(this.getClass()) + "src/main/webapp/";
             }
+            log.info("web root:"+prefixPath);
             root = new File(prefixPath);
             if (root.exists() && root.isDirectory()) {
                 servletWebServer.setDocumentRoot(root);
