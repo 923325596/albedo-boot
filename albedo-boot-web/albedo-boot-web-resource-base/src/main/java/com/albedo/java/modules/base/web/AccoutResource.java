@@ -1,7 +1,7 @@
 package com.albedo.java.modules.base.web;
 
 import com.albedo.java.common.AuthoritiesConstants;
-import com.albedo.java.common.persistence.IdGen;
+import com.albedo.java.common.persistence.pk.IdGen;
 import com.albedo.java.common.security.SecurityAuthUtil;
 import com.albedo.java.common.security.SecurityConstants;
 import com.albedo.java.common.security.SecurityUtil;
@@ -299,7 +299,7 @@ public class AccoutResource extends BaseResource {
     @GetMapping("/rest/info/{loginId}")
     @ApiOperation(value = "获取重置用户信息")
     public ResponseEntity resetPassword(@PathVariable String loginId) {
-        UserVo oneByLoginId = userService.findOneByLoginId(loginId);
+        UserVo oneByLoginId = userService.findOneVoByLoginId(loginId);
         Assert.assertIsTrue(oneByLoginId!=null && User.FLAG_NORMAL.equals(oneByLoginId.getStatus()), "当前账号已锁定");
         return ResultBuilder.buildOk(new UserRestVo(oneByLoginId));
     }

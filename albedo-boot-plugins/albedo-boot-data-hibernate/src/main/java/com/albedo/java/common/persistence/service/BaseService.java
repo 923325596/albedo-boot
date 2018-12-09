@@ -40,15 +40,13 @@ public class BaseService<Repository extends BaseRepository<T, PK>, T extends Gen
     public void deleteAll() {
         repository.deleteAll();
     }
-    public T save(T entity) {
-        entity = repository.save(entity);
+    public void save(T entity) {
+        repository.save(entity);
         log.debug("Save Information for Entity: {}", entity);
-        return entity;
     }
 
-    public Iterable<T> save(Iterable<T> entitys) {
+    public void save(Iterable<T> entitys) {
         entitys.forEach(item -> save(item));
-        return entitys;
     }
 
     public List<T> findAll(){

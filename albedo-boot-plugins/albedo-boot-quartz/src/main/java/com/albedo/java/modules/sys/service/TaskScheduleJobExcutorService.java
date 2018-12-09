@@ -107,8 +107,8 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
     }
 
     @Override
-    public boolean save(TaskScheduleJob scheduleJob) {
-        return save(scheduleJob, true);
+    public void save(TaskScheduleJob scheduleJob) {
+         save(scheduleJob, true);
     }
 
     /*
@@ -147,9 +147,8 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
         if (method == null) {
             throw new RuntimeMsgException("未找到目标方法！");
         }
-        boolean flag = false;
         try {
-            flag = taskScheduleJobService.save(scheduleJob);
+            taskScheduleJobService.save(scheduleJob);
         } catch (Exception e) {
             log.error("msg {}", e.getMessage());
             throw new RuntimeMsgException("保存失败，检查 name group 组合是否有重复！");
@@ -161,7 +160,7 @@ public class TaskScheduleJobExcutorService extends DataVoService<TaskScheduleJob
                 addJob(scheduleJob);
             }
         }
-        return flag;
+        return true;
     }
 
     /*

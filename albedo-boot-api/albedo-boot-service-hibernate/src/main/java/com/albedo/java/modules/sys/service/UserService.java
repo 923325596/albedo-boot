@@ -1,9 +1,11 @@
 package com.albedo.java.modules.sys.service;
 
+import com.albedo.java.common.AuthoritiesConstants;
 import com.albedo.java.common.persistence.DynamicSpecifications;
 import com.albedo.java.common.persistence.SpecificationDetail;
 import com.albedo.java.common.persistence.service.DataVoService;
 import com.albedo.java.modules.sys.domain.Org;
+import com.albedo.java.modules.sys.domain.PersistentAuditEvent;
 import com.albedo.java.modules.sys.domain.Role;
 import com.albedo.java.modules.sys.domain.User;
 import com.albedo.java.modules.sys.repository.OrgRepository;
@@ -14,9 +16,13 @@ import com.albedo.java.util.BeanVoUtil;
 import com.albedo.java.util.DateUtil;
 import com.albedo.java.util.PublicUtil;
 import com.albedo.java.util.RandomUtil;
+import com.albedo.java.util.base.Assert;
 import com.albedo.java.util.domain.PageModel;
 import com.albedo.java.util.domain.QueryCondition;
 import com.albedo.java.util.exception.RuntimeMsgException;
+import com.albedo.java.vo.account.PasswordChangeVo;
+import com.albedo.java.vo.account.PasswordRestVo;
+import com.albedo.java.vo.sys.UserDataVo;
 import com.albedo.java.vo.sys.UserExcelVo;
 import com.albedo.java.vo.sys.UserVo;
 import com.google.common.collect.Lists;
@@ -32,7 +38,11 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
+import java.util.regex.Pattern;
 
+
+import static com.albedo.java.util.RedisUtil.redisTemplate;
 /**
  * Service class for managing users.
  */
@@ -45,12 +55,14 @@ public class UserService extends DataVoService<UserRepository, User, String, Use
     private final RoleRepository roleRepository;
     private final OrgRepository orgRepository;
     private final CacheManager cacheManager;
+    private final PersistenceAuditEventService persistenceAuditEventService;
 
-    public UserService(PersistentTokenRepository persistentTokenRepository, RoleRepository roleRepository, OrgRepository orgRepository, CacheManager cacheManager) {
+    public UserService(PersistentTokenRepository persistentTokenRepository, RoleRepository roleRepository, OrgRepository orgRepository, CacheManager cacheManager, PersistenceAuditEventService persistenceAuditEventService) {
         this.persistentTokenRepository = persistentTokenRepository;
         this.roleRepository = roleRepository;
         this.orgRepository = orgRepository;
         this.cacheManager = cacheManager;
+        this.persistenceAuditEventService = persistenceAuditEventService;
     }
 
     @Override
@@ -169,7 +181,6 @@ public class UserService extends DataVoService<UserRepository, User, String, Use
         return pm;
     }
 
-
     public void changePassword(String loginId, String newPassword, String avatar) {
         Optional.of(loginId)
             .flatMap(repository::findOneByLoginId)
@@ -219,5 +230,71 @@ public class UserService extends DataVoService<UserRepository, User, String, Use
     public UserVo findExcelOneVo() {
         User user = repository.findOneByIdNotAndStatus("1", User.FLAG_NORMAL);
         return BeanVoUtil.copyPropertiesByClass(user, UserVo.class);
+    }
+
+    public void saveImageCode(String randomStr, String imageCode) {
+        redisTemplate.opsForValue().set(AuthoritiesConstants.DEFAULT_CODE_KEY + randomStr, imageCode, AuthoritiesConstants.DEFAULT_IMAGE_EXPIRE, TimeUnit.SECONDS);
+    }
+    /**
+     * 正则表达式：验证手机号
+     */
+    public static final String REGEX_MOBILE = "^((17[0-9])|(14[0-9])|(13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+
+    public void sendSmsCode(String mobile) {
+        Assert.assertIsTrue(PublicUtil.isNotEmpty(REGEX_MOBILE), "该账号没有手机号码，无法获取验证码albedo！");
+        Assert.assertIsTrue(Pattern.matches(REGEX_MOBILE, mobile), "该账号手机号码有误，无法发送验证码！");
+        Object tempCode = redisTemplate.opsForValue().get(AuthoritiesConstants.DEFAULT_CODE_KEY + mobile);
+        Assert.assertIsTrue(tempCode==null, "验证码未失效，请失效后再次申请");
+        Long integer = repository.count(DynamicSpecifications.bySearchQueryCondition(QueryCondition.eq(User.F_PHONE, mobile)));
+        Assert.assertIsTrue(integer>0, "该账号没有手机号码，无法获取验证码albedo！");
+
+        String code = PublicUtil.getRandomNumber(4);
+        log.info("短信发送请求消息中心 -> 手机号:{} -> 验证码：{}", mobile, code);
+//        SMSMessageUtil.sendSMSMessage(mobile, code);
+        redisTemplate.opsForValue().set(AuthoritiesConstants.DEFAULT_CODE_KEY + mobile, code, AuthoritiesConstants.DEFAULT_IMAGE_EXPIRE, TimeUnit.SECONDS);
+    }
+
+    public void resetPassword(@Valid PasswordRestVo passwordRestVo) {
+        Object tempCode = redisTemplate.opsForValue().get(AuthoritiesConstants.DEFAULT_CODE_KEY + passwordRestVo.getPhone());
+        Assert.assertIsTrue(passwordRestVo.getCode().equals(tempCode), "验证码输入有误");
+        repository.findOneByLoginId(passwordRestVo.getLoginId()).ifPresent(
+            user -> updatePassword(user, passwordRestVo.getPasswordPlaintext(), passwordRestVo.getNewPassword())
+        );
+    }
+    private void updatePassword(User user, String passwordPlaintext, String newPassword) {
+        user.setPassword(newPassword);
+//        user.setPasswordPlaintext(passwordPlaintext);
+        repository.save(user);
+//        cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(user.getLoginId());
+        log.debug("Changed password for User: {}", user);
+    }
+
+    public void changePassword(String loginId, PasswordChangeVo passwordChangeVo) {
+        repository.findOneByLoginId(loginId).ifPresent(
+            user -> updatePassword(user, passwordChangeVo.getConfirmPassword(), passwordChangeVo.getNewPassword())
+        );
+    }
+    public UserDataVo copyBeanToDataVo(User user) {
+        UserDataVo userResult = new UserDataVo();
+        if(user!=null){
+            BeanVoUtil.copyProperties(user, userResult, true);
+            userResult.setRoleNames(user.getRoleNames());
+            if (user.getOrg() != null) {
+                userResult.setOrgName(user.getOrg().getName());
+            }
+            if(user.getRoleIdList()!=null){
+                userResult.setRoleIdList(user.getRoleIdList().get(0));
+            }
+            PersistentAuditEvent persistentAuditEvent = persistenceAuditEventService.findByPrincipalLast(user.getLoginId());
+            if(PublicUtil.isNotEmpty(persistentAuditEvent)){
+                userResult.setLoginTime(persistentAuditEvent.getAuditEventDate());
+            }
+            userResult.setCurrentTime(PublicUtil.getCurrentDate());
+        }
+        return userResult;
+    }
+
+    public UserVo findOneVoByLoginId(String loginId) {
+        return copyBeanToVo(repository.getOneByLoginId(loginId).get());
     }
 }

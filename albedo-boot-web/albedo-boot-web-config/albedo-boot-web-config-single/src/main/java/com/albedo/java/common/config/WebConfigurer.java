@@ -165,7 +165,7 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
 //                "pageInitParamFilter",
 //                new PageInitParamFilter());
 //        pageInitParamFilter.addMappingForUrlPatterns(disps, true,
-//                albedoProperties.getAdminPath("/*"));
+//                ApplicationProperties.getAdminPath("/*"));
 //        pageInitParamFilter.setAsyncSupported(true);
 //    }
 

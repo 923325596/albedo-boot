@@ -55,17 +55,22 @@ public class PersistenceAuditEventService extends BaseService<PersistenceAuditEv
         return persistenceAuditEventRepository.findByPrincipalAndAuditEventDateAfterAndAuditEventType(principal, from, type);
     }
 
+    @Transactional(readOnly = true)
     public PageModel<PersistentAuditEvent> findPage(PageModel<PersistentAuditEvent> pm) {
         Page<PersistentAuditEvent> page = persistenceAuditEventRepository.findAll(pm);
         pm.setPageInstance(page);
         return pm;
     }
 
+    @Transactional(readOnly = true)
     public PageModel<PersistentAuditEvent> findPage(PageModel<PersistentAuditEvent> pm, SpecificationDetail<PersistentAuditEvent> specificationDetail) {
         Page<PersistentAuditEvent> page = persistenceAuditEventRepository.findAll(specificationDetail, pm);
         pm.setPageInstance(page);
         return pm;
     }
 
-
+    @Transactional(readOnly = true)
+    public PersistentAuditEvent findByPrincipalLast(String principal) {
+        return persistenceAuditEventRepository.findTopOneByPrincipalOrderByAuditEventDateDesc(principal);
+    }
 }

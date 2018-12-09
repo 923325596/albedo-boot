@@ -25,4 +25,6 @@ public interface PersistenceAuditEventRepository extends BaseRepository<Persiste
     List<PersistentAuditEvent> findByPrincipalAndAuditEventDateAfterAndAuditEventType(String principle, Date after, String type);
 
     Page<PersistentAuditEvent> findAllByAuditEventDateBetween(Date fromDate, Date toDate, Pageable pageable);
+
+    PersistentAuditEvent findTopOneByPrincipalOrderByAuditEventDateDesc(String principal);
 }

@@ -67,9 +67,9 @@ package com.albedo.java.common.security.service;//package com.albedo.java.common
 //    @Autowired
 //    private UserRepository userRepository;
 //
-//    public CustomPersistentRememberMeServices(ApplicationProperties albedoProperties, org.springframework.security.core.userdetails
+//    public CustomPersistentRememberMeServices(ApplicationProperties ApplicationProperties, org.springframework.security.core.userdetails
 //            .UserCustomDetailsService userDetailsService) {
-//        super(albedoProperties.getSecurity().getRememberMe().getKey(), userDetailsService);
+//        super(ApplicationProperties.getSecurity().getRememberMe().getKey(), userDetailsService);
 //        random = new SecureRandom();
 //    }
 //

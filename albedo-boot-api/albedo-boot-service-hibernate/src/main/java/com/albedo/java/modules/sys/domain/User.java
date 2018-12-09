@@ -34,6 +34,7 @@ import java.util.Set;
 @DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public class User extends IdEntity<String> {
+    public static final String F_PHONE = "phone";
     private static final long serialVersionUID = 1L;
     /*** F_LOGINID */
     public static final String F_LOGINID = "loginId";

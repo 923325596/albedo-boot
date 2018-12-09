@@ -53,7 +53,7 @@ public class ProfileInfoResourceIntTest {
         when(environment.getDefaultProfiles()).thenReturn(activeProfiles);
         when(environment.getActiveProfiles()).thenReturn(activeProfiles);
 
-//        ProfileInfoResource profileInfoResource = new ProfileInfoResource(environment, albedoProperties);
+//        ProfileInfoResource profileInfoResource = new ProfileInfoResource(environment, ApplicationProperties);
         this.restProfileMockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext)
             .build();
     }

@@ -1,11 +1,13 @@
 package com.albedo.java.util;
 
-import com.albedo.java.common.config.AlbedoProperties;
+import com.albedo.java.common.config.ApplicationProperties;
 import com.albedo.java.modules.sys.domain.Dict;
 import com.albedo.java.modules.sys.repository.DictRepository;
+import com.albedo.java.modules.sys.service.DictService;
 import com.albedo.java.util.config.SystemConfig;
 import com.albedo.java.util.domain.DictVm;
 import com.albedo.java.util.spring.SpringContextHolder;
+import com.albedo.java.vo.base.SelectResult;
 import com.albedo.java.vo.sys.query.DictQuery;
 import com.alibaba.fastjson.JSONObject;
 import com.google.common.collect.Lists;
@@ -23,11 +25,11 @@ import java.util.Map;
 public class DictUtil {
     public static final String CACHE_DICT_MAP = "dictMap";
     public static final String CACHE_DICT_LIST = "dictList";
-    public static AlbedoProperties albedoProperties = SpringContextHolder.getBean(AlbedoProperties.class);
-    public static DictRepository dictService = SpringContextHolder.getBean(DictRepository.class);
+    public static ApplicationProperties ApplicationProperties = SpringContextHolder.getBean(ApplicationProperties.class);
+    public static DictService dictService = SpringContextHolder.getBean(DictService.class);
     private static Map<String, String> dataMap = Maps.newHashMap();
 
-    private static boolean cluster = albedoProperties.getCluster();
+    private static boolean cluster = ApplicationProperties.getCluster();
 
     /**
      * 清空ehcache中所有字典对象
@@ -136,7 +138,8 @@ public class DictUtil {
     /**
      * 根据code 和 原始值 获取数据字典name
      *
-     * @param types
+     * @param code
+     * @param values
      * @return
      */
     public static String getNamesByValues(String code, String values) {
@@ -157,7 +160,7 @@ public class DictUtil {
      * 根据code 和 name 获取数据字典原始值 下级
      *
      * @param code
-     * @param val
+     * @param name
      * @return
      */
     public static String getValByName(String code, String name) {
@@ -412,4 +415,7 @@ public class DictUtil {
         return rsList;
     }
 
+    public static Map<String,List<SelectResult>> getCodeList(List<String> kindIds) {
+        return dictService.findCodeList(kindIds);
+    }
 }

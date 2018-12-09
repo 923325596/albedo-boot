@@ -79,7 +79,7 @@ public class FileResource extends BaseResource {
             fileDataList.add(fileData);
         }
         Assert.assertIsTrue(fileDataList.size()>0, "上传文件不能为空");
-        fileDataService.saveOrUpdateBatch(fileDataList);
+        fileDataService.save(fileDataList);
         return ResultBuilder.buildDataOk(fileDataList.stream()
             .map(item->BeanVoUtil.copyPropertiesByClass(item, FileDataResultVo.class)).collect(Collectors.toList()));
     }
@@ -111,7 +111,7 @@ public class FileResource extends BaseResource {
 //    @RequestMapping(value = "/upload", method = RequestMethod.POST)
 //    public ResponseEntity upload(@RequestParam("uploadFile") MultipartFile[] files) {
 //        List<String> fileList = new LinkedList<>();
-//        String directory = SecurityUtil.albedoProperties.getStaticFileDirectory();
+//        String directory = SecurityUtil.ApplicationProperties.getStaticFileDirectory();
 //        String dir = mkdirs(directory);
 //
 //        for (int i = 0; i < files.length; i++) {
@@ -151,7 +151,7 @@ public class FileResource extends BaseResource {
 //    @RequestMapping(value = "/get/{year}/{month}/{day}/{fileName:.+}", method = RequestMethod.GET)
 //    public void get(HttpServletResponse response, @PathVariable String year, @PathVariable String month, @PathVariable String day, @PathVariable String fileName) {
 //        try {
-//            String directory = SecurityUtil.albedoProperties.getStaticFileDirectory();
+//            String directory = SecurityUtil.ApplicationProperties.getStaticFileDirectory();
 //            String dir = new StringBuilder().append(directory).append("/").append(year).append("/").append(month).append("/").append(day).toString();
 //            File file = FileUtils.getFile(dir, fileName);
 //            byte[] bytes = FileCopyUtils.copyToByteArray(file);

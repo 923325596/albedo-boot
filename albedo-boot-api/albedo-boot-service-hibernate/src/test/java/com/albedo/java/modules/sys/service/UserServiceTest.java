@@ -167,20 +167,20 @@ public class UserServiceTest {
         orgRepository.findOneByName(orgParent.getName()).ifPresent(t -> {
             orgParent.setId(t.getId());
         });
-        orgParent = orgService.save(orgParent);
+        orgService.save(orgParent);
         org.setParentId(orgParent.getId());
         orgRepository.findOneByName(org.getName()).ifPresent(t -> {
             org.setId(t.getId());
         });
-        org = orgService.save(org);
-        roles = (Set<Role>) roleService.save(roles);
+        orgService.save(org);
+        roleService.save(roles);
 
         user1.setOrgId(org.getId());
         user1.setRoles(roles);
         userRepository.findOneByLoginId(user1.getLoginId()).ifPresent(t -> {
             user1.setId(t.getId());
         });
-        user1 = userService.save(user1);
+        userService.save(user1);
 
         user2.setOrgId(org.getId());
         user2.setRoles(roles);

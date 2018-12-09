@@ -6,6 +6,7 @@ import com.albedo.java.common.persistence.domain.BaseEntity;
 import com.albedo.java.common.security.*;
 import com.albedo.java.modules.sys.domain.User;
 import com.albedo.java.modules.sys.repository.UserRepository;
+import com.albedo.java.modules.sys.service.UserService;
 import com.albedo.java.util.PublicUtil;
 import com.albedo.java.util.StringUtil;
 import com.albedo.java.util.base.Assert;
@@ -34,12 +35,12 @@ public class UserCustomDetailsService implements UserDetailsService {
 
     private final Logger log = LoggerFactory.getLogger(UserCustomDetailsService.class);
 
-    private final UserRepository userRepository;
+    private final UserService userService;
 
     private final CacheManager cacheManager;
 
-    public UserCustomDetailsService(UserRepository userRepository, CacheManager cacheManager) {
-        this.userRepository = userRepository;
+    public UserCustomDetailsService(UserService userService, CacheManager cacheManager) {
+        this.userService = userService;
         this.cacheManager = cacheManager;
     }
 
@@ -47,9 +48,7 @@ public class UserCustomDetailsService implements UserDetailsService {
     @Transactional
     public UserDetails loadUserByUsername(final String loginId) {
         log.debug("Authenticating {}", loginId);
-        User userDataBase = userRepository.selectUserByLoginId(loginId);
-        Assert.assertNotNull(userDataBase, "用户 " + loginId + " 不存在");
-        return Optional.of(userDataBase).map(user -> {
+        return userService.findOneByLoginId(loginId).map(user -> {
             if (!BaseEntity.FLAG_NORMAL.equals(user.getStatus())) {
                 throw new RuntimeMsgException("用户 " + loginId + " 登录信息已被"+ UserStatusEnum.get(user.getStatus()).getText());
             }

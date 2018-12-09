@@ -30,7 +30,7 @@ public class JWTFilterTest {
     @Before
     public void setup() {
         ApplicationProperties applicationProperties = new ApplicationProperties();
-//        albedoProperties.getHttp().setRestful(true);
+//        ApplicationProperties.getHttp().setRestful(true);
         tokenProvider = new TokenProvider(applicationProperties);
         ReflectionTestUtils.setField(tokenProvider, "secretKey", "test secret");
         ReflectionTestUtils.setField(tokenProvider, "tokenValidityInMilliseconds", 60000);
