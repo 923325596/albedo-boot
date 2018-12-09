@@ -53,7 +53,7 @@ spring:
 # ===================================================================
 
 application:
-    application: albedoBootWebApp
+    name: albedoBootWebApp
     adminPath: /api
     frontPath: /f
     defaultView:

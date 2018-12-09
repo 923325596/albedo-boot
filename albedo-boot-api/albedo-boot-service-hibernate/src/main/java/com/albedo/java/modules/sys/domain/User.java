@@ -47,8 +47,8 @@ public class User extends IdEntity<String> {
     @SearchField
     private String loginId;
 
-    @Column(name = "avatar_", length = 225)
-    private String avatar;
+//    @Column(name = "avatar_", length = 225)
+//    private String avatar;
 
     @JSONField(serialize = false)
     @NotBlank
@@ -275,12 +275,4 @@ public class User extends IdEntity<String> {
         return Collections3.convertToString(getRoleIdList(), ",");
     }
 
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
-    }
 }

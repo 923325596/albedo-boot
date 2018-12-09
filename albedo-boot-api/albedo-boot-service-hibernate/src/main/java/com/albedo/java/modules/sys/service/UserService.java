@@ -186,7 +186,7 @@ public class UserService extends DataVoService<UserRepository, User, String, Use
             .flatMap(repository::findOneByLoginId)
             .ifPresent(user -> {
                 user.setPassword(newPassword);
-                user.setAvatar(avatar);
+//                user.setAvatar(avatar);
                 cacheManager.getCache(UserRepository.USERS_BY_LOGIN_CACHE).evict(user.getLoginId());
                 log.debug("Changed password for User: {}", user);
                 save(user);
