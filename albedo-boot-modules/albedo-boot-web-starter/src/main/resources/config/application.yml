@@ -75,7 +75,7 @@ application:
     mail:
         from: albedoBootWebApp@localhost
     swagger:
-        default-include-pattern: ${application.adminPath}/.*
+        default-include-pattern: ${application.adminPath}/sys/user/.*
         title: albedoBootWebApp API
         description: albedoBootWebApp API documentation
         version: 0.0.1

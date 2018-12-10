@@ -35,7 +35,7 @@ public class GatewayConfiguration {
      * This uses Bucket4J to limit the API calls
      */
     @Configuration
-    @ConditionalOnProperty("albedo.gateway.rate-limiting.enabled")
+    @ConditionalOnProperty("application.gateway.rate-limiting.enabled")
     public static class RateLimitingConfiguration {
 
         private final ApplicationProperties applicationProperties;

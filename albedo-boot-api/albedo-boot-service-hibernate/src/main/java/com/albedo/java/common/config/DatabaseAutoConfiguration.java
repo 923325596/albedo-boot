@@ -21,22 +21,4 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 public class DatabaseAutoConfiguration {
 
-    private final Logger log = LoggerFactory.getLogger(DatabaseAutoConfiguration.class);
-
-    /**
-     * Support for Hibernate types in Jackson.
-     * @return
-     */
-    @Bean
-    public Hibernate5Module hibernate5Module() {
-        return new Hibernate5Module();
-    }
-
-    @Bean
-    @ConditionalOnMissingClass
-    public AuditorAware<String> springSecurityAuditorAware() {
-        return  () -> java.util.Optional.of("1");
-    }
-
-
 }

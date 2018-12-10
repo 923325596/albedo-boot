@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
  */
 
 @Component
-@ConfigurationProperties(prefix = "albedo.swagger", ignoreUnknownFields = false)
+@ConfigurationProperties(prefix = "application.swagger", ignoreUnknownFields = false)
 @Data
 public class AlbedoSwaggerProperties {
     private String title = "Application API";
