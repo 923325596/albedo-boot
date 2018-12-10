@@ -91,7 +91,7 @@ public class UserResource extends DataVoResource<UserService, UserVo> {
     @PostMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
     @Timed
     @ApiImplicitParams(@ApiImplicitParam(paramType = "query", name = "confirmPassword"))
-    public ResponseEntity<CustomMessage> save(@Valid @RequestBody UserVo userVo) {
+    public ResponseEntity save(@Valid @RequestBody UserVo userVo) {
         log.debug("REST request to save userVo : {}", userVo);
         // beanValidatorAjax(user);
         if (PublicUtil.isNotEmpty(userVo.getPassword()) && !userVo.getPassword().equals(userVo.getConfirmPassword())) {
