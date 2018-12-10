@@ -20,7 +20,7 @@ public class CustomizeAccessDecisionManager implements AccessDecisionManager {
         if (configAttributes == null) {
             return;
         }
-        if (SecurityAuthUtil.isAdmin(SecurityUtil.getCurrentUserId())||SecurityAuthUtil.isSystemAdmin()) {
+        if (SecurityAuthUtil.isAdmin(SecurityUtil.getCurrentUserId())) {
             return;
         }
 

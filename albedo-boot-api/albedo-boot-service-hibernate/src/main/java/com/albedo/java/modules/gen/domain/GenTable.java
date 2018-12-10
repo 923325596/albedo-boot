@@ -1,6 +1,7 @@
 package com.albedo.java.modules.gen.domain;
 
 import com.albedo.java.common.persistence.domain.DataEntity;
+import com.albedo.java.common.persistence.domain.DataUserEntity;
 import com.albedo.java.common.persistence.domain.IdEntity;
 import com.albedo.java.util.PublicUtil;
 import com.albedo.java.util.StringUtil;
@@ -31,7 +32,7 @@ import java.util.List;
 @DynamicInsert
 @DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class GenTable extends IdEntity<String> {
+public class GenTable extends DataUserEntity<String> {
 
     public static final String F_NAME = "name";
     public static final String F_NAMESANDTITLE = "nameAndTitle";

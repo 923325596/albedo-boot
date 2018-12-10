@@ -1,5 +1,6 @@
 package com.albedo.java.modules.gen.domain;
 
+import com.albedo.java.common.persistence.domain.DataUserEntity;
 import com.albedo.java.common.persistence.domain.IdEntity;
 import com.alibaba.fastjson.annotation.JSONField;
 import org.hibernate.annotations.Cache;
@@ -20,7 +21,7 @@ import javax.persistence.Table;
 @DynamicInsert
 @DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class GenScheme extends IdEntity<String> {
+public class GenScheme extends DataUserEntity<String> {
 
     /**
      * @Fields CATEGORY_CURD : 增删改查（单表）
@@ -45,42 +46,87 @@ public class GenScheme extends IdEntity<String> {
     private static final long serialVersionUID = 1L;
     @Size(min = 1, max = 200)
     @Column(name = "name_")
-    private String name; // 名称
+    /**
+     * 名称
+     */
+    private String name; 
     @Column(name = "category_")
-    private String category; // 分类
+    /**
+     * 分类
+     */
+    private String category; 
     @Column(name = "view_type")
-    private Integer viewType; // 视图类型 0 普通表格 1 表格采用ajax刷新
+    /**
+     * 视图类型 0 普通表格 1 表格采用ajax刷新
+     */
+    private Integer viewType; 
+    /**
+     * 生成包路径
+     */
     @Column(name = "package_name")
-    private String packageName; // 生成包路径
+    private String packageName; 
+    /**
+     * 生成模块名
+     */
     @Column(name = "module_name")
-    private String moduleName; // 生成模块名
+    private String moduleName; 
+    /**
+     * 生成子模块名
+     */
     @Column(name = "sub_module_name")
-    private String subModuleName; // 生成子模块名
+    private String subModuleName; 
+    /**
+     * 生成功能名
+     */
     @Column(name = "function_name")
-    private String functionName; // 生成功能名
+    private String functionName; 
+    /**
+     * 生成功能名（简写）
+     */
     @Column(name = "function_name_simple")
-    private String functionNameSimple; // 生成功能名（简写）
+    private String functionNameSimple; 
+    /**
+     * 生成功能作者
+     */
     @Column(name = "function_author")
-    private String functionAuthor; // 生成功能作者
+    private String functionAuthor; 
+    /**
+     * 业务表名
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "gen_table_id", nullable = true, updatable = false, insertable = false)
     @NotFound(action = NotFoundAction.IGNORE)
-    private GenTable genTable; // 业务表名
+    private GenTable genTable; 
+    /**
+     * 业务表名
+     */
     @Column(name = "gen_table_id")
-    private String genTableId; // 业务表名
+    private String genTableId; 
+    /**
+     * flase：保存方案； ture：保存方案并生成代码
+     */
 
     @JSONField(serialize = false)
     @Transient
-    private Boolean genCode = false; // flase：保存方案； ture：保存方案并生成代码
+    private Boolean genCode = false; 
+    /**
+     * 是否替换现有文件 true：替换文件 ；false：不替换；
+     */
     @JSONField(serialize = false)
     @Transient
-    private Boolean replaceFile = false; // 是否替换现有文件 true：替换文件 ；false：不替换；
+    private Boolean replaceFile = false; 
+    /**
+     * 是否同步模块数据 true：同步；false：不同步
+     */
     @JSONField(serialize = false)
     @Transient
-    private Boolean syncModule = false; // 是否同步模块数据 true：同步；false：不同步
+    private Boolean syncModule = false; 
+    /**
+     * 上级模块 ID 仅当syncModule 为 true有效
+     */
     @JSONField(serialize = false)
     @Transient
-    private String parentModuleId; // 上级模块 ID 仅当syncModule 为 true有效
+    private String parentModuleId; 
 
     public GenScheme() {
         super();

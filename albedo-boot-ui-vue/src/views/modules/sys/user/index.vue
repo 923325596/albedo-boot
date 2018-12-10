@@ -131,14 +131,7 @@
         </el-form-item>
 
         <el-form-item label="角色" prop="roleIdList" :rules="[{required: true,message: '请选择角色' }]">
-          <el-select class="filter-item" v-model="form.roleIdList" placeholder="请选择" multiple>
-            <!--<el-select class="filter-item" v-model="form.roleIdList" placeholder="请选择" multiple>-->
-            <!--<el-option v-for="item in rolesOptions" :key="item.value" :label="item.label"-->
-            <!--:value="item.value" :disabled="item.status">-->
-            <!--</el-option>-->
-            <!--</el-select>-->
-            <AvueCrudSelect v-model="form.roleIdList" :multiple="true" :filterable="true" :dic="rolesOptions"></AvueCrudSelect>
-          </el-select>
+          <AvueCrudSelect v-model="form.roleIdList" :multiple="true" :filterable="true" :dic="rolesOptions"></AvueCrudSelect>
         </el-form-item>
 
         <el-form-item label="状态" prop="status" :rules="[{required: true,message: '请选择状态' }]">

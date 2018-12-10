@@ -1,6 +1,7 @@
 package com.albedo.java.modules.sys.domain;
 
 import com.albedo.java.common.persistence.domain.TreeEntity;
+import com.albedo.java.common.persistence.domain.TreeUserEntity;
 import com.albedo.java.util.PublicUtil;
 import com.albedo.java.util.annotation.DictType;
 import com.albedo.java.util.annotation.SearchField;
@@ -27,7 +28,7 @@ import javax.xml.bind.annotation.XmlAttribute;
 @DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @ToString
-public class Dict extends TreeEntity<Dict> {
+public class Dict extends TreeUserEntity<Dict> {
 
     /**
      * 叶子节点

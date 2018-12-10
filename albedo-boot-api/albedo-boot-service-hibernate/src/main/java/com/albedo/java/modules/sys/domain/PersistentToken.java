@@ -17,7 +17,6 @@ import java.util.Date;
 /**
  * Persistent tokens are used by Spring Security to automatically log in users.
  *
- * @see com.albedo.java.common.security.service.CustomPersistentRememberMeServices
  */
 @Entity
 @Table(name = "jhi_persistent_token")

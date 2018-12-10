@@ -104,7 +104,6 @@ import { page${ClassName}, find${ClassName}, save${ClassName}, lock${ClassName},
 import { mapGetters } from "vuex";
 import {DATA_STATUS} from "@/const/common";
 import {isValidateUnique, isValidateNumber, isValidateDigits, objectToString, toStr, validateNull} from "@/util/validate";
-import {dictCodes} from "@/api/dataSystem";
 import {MSG_TYPE_SUCCESS} from "@/const/common";
 import {parseJsonItemForm} from "@/util/util";
 
@@ -152,7 +151,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['authorities'])
+    ...mapGetters(["authorities","dicts"])
   },
   filters: {
   },
@@ -161,13 +160,10 @@ export default {
     this.${permissionPrefix}_edit = this.authorities.indexOf("${permissionPrefix}_edit") !== -1;
     this.${permissionPrefix}_lock = this.authorities.indexOf("${permissionPrefix}_lock") !== -1;
     this.${permissionPrefix}_delete = this.authorities.indexOf("${permissionPrefix}_delete") !== -1;
-
-    dictCodes({codes:'<#list table.columnList as c><#if c.dictType?? && c.dictType != ''>${c.dictType},</#if></#list>'}).then(response => {
-      <#assign index = 0 /><#list table.columnList as c><#if c.dictType?? && c.dictType != ''>
-      this.${c.javaFieldId}Options = response.data[${index}];
-      <#assign index = index+1 />
-      </#if></#list>
-    });
+    <#assign index = 0 /><#list table.columnList as c><#if c.dictType?? && c.dictType != ''>
+    this.${c.javaFieldId}Options = this.dicts["${c.dictType}"];
+    <#assign index = index+1 />
+    </#if></#list>
   },
   methods: {
     getList() {

@@ -1,6 +1,7 @@
 package com.albedo.java.modules.sys.domain;
 
 import com.albedo.java.common.persistence.domain.TreeEntity;
+import com.albedo.java.common.persistence.domain.TreeUserEntity;
 import com.albedo.java.util.annotation.DictType;
 import com.albedo.java.util.annotation.SearchField;
 import com.alibaba.fastjson.annotation.JSONField;
@@ -25,7 +26,7 @@ import java.util.Set;
 @DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @ToString
-public class Org extends TreeEntity<Org> {
+public class Org extends TreeUserEntity<Org> {
 
     public static final String F_TYPE = "type";
     public static final String F_CODE = "code";

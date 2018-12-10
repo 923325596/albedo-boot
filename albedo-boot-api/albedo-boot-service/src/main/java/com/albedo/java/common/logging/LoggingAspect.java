@@ -49,8 +49,8 @@ public class LoggingAspect {
         }
         try {
             Object result = joinPoint.proceed();
-            if (log.isDebugEnabled()) {
-                log.debug("Exit: {}.{}() with result = {}", joinPoint.getSignature().getDeclaringTypeName(),
+            if (log.isTraceEnabled()) {
+                log.trace("Exit: {}.{}() with result = {}", joinPoint.getSignature().getDeclaringTypeName(),
                         joinPoint.getSignature().getName(), result);
             }
             return result;

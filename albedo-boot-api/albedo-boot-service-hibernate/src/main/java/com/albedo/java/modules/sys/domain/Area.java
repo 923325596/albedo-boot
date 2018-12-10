@@ -3,23 +3,21 @@
  */
 package com.albedo.java.modules.sys.domain;
 
-import com.albedo.java.common.persistence.domain.TreeEntity;
+import com.albedo.java.common.persistence.domain.TreeUserEntity;
 import com.albedo.java.util.annotation.DictType;
 import com.albedo.java.util.annotation.SearchField;
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.Data;
+import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
-import javax.validation.constraints.Size;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * 区域管理Entity 区域管理
@@ -32,7 +30,8 @@ import javax.validation.constraints.NotNull;
 @DynamicInsert
 @DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class Area extends TreeEntity<Area> {
+@ToString @Data
+public class Area extends TreeUserEntity<Area> {
 
     /**
      * F_SHORTNAME short_name  :  区域简称
@@ -121,39 +120,4 @@ public class Area extends TreeEntity<Area> {
         this.code = value;
     }
 
-    public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.MULTI_LINE_STYLE)
-                .append("id", getId())
-                .append("parentIds", getParentIds())
-                .append("parentId", getParentId())
-                .append("name", getName())
-                .append("shortName", getShortName())
-                .append("sort", getSort())
-                .append("level", getLevel())
-                .append("code", getCode())
-                .append("description", getDescription())
-                .append("isLeaf", getIsLeaf())
-                .append("status", getStatus())
-                .append("version", getVersion())
-                .append("createdBy", getCreatedBy())
-                .append("createdDate", getCreatedDate())
-                .append("lastModifiedBy", getLastModifiedBy())
-                .append("lastModifiedDate", getLastModifiedDate())
-                .toString();
-    }
-
-    public int hashCode() {
-        return new HashCodeBuilder()
-                .append(getId())
-                .toHashCode();
-    }
-
-    public boolean equals(Object obj) {
-        if (obj instanceof Area == false) return false;
-        if (this == obj) return true;
-        Area other = (Area) obj;
-        return new EqualsBuilder()
-                .append(getId(), other.getId())
-                .isEquals();
-    }
 }

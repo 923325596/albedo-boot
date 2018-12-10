@@ -1,5 +1,6 @@
 package com.albedo.java.modules.gen.domain;
 
+import com.albedo.java.common.persistence.domain.DataUserEntity;
 import com.albedo.java.common.persistence.domain.IdEntity;
 import com.albedo.java.common.persistence.domain.TreeEntity;
 import com.albedo.java.util.PublicUtil;
@@ -27,7 +28,7 @@ import java.util.List;
 @DynamicInsert
 @DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
-public class GenTableColumn extends IdEntity<String> {
+public class GenTableColumn extends DataUserEntity<String> {
 
     private static final long serialVersionUID = 1L;
     @Column(name = "gen_table_id")

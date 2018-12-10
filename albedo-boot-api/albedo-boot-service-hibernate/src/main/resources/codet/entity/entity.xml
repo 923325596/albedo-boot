@@ -9,7 +9,7 @@
  */
 package ${packageName}.${moduleName}.domain<#if subModuleName != "">.${subModuleName}</#if>;
 
-import com.albedo.java.common.persistence.domain.IdEntity;
+import com.albedo.java.common.persistence.domain.DataUserEntity;
 import com.albedo.java.util.annotation.DictType;
 import com.albedo.java.util.annotation.SearchField;
 import lombok.AllArgsConstructor;
@@ -41,7 +41,7 @@ import java.util.Objects;
 @DynamicInsert @DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Data @ToString @NoArgsConstructor @AllArgsConstructor
-public class ${ClassName} extends IdEntity<${table.pkColumn.javaType}> {
+public class ${ClassName} extends DataUserEntity<${table.pkColumn.javaType}> {
 
 	private static final long serialVersionUID = 1L;
 	<#list table.columnList as column>
@@ -82,7 +82,7 @@ public class ${ClassName} extends IdEntity<${table.pkColumn.javaType}> {
 	private ${column.simpleJavaType} ${column.simpleJavaField};
 	@Column(name = "${column.name}")
 	private String ${column.simpleJavaField}Id;
-	<#else>${column.hibernateValidatorExprssion}<#if column.isDateTimeColumn>@Temporal(TemporalType.DATE)</#if>@Column(name = "${column.name}", unique = ${column.unique?string}, nullable = ${column.nullable?string}<#if column.javaType = 'String'>, length = ${column.size}</#if>)<#if column.unique>@SearchField</#if><#if column.dictType?? && column.dictType != "">@DictType(name="${column.dictType}")</#if>
+	<#else>${column.hibernateValidatorExprssion}<#if column.isDateTimeColumn>@Temporal(TemporalType.DATE)</#if>@Column(name = ${ClassName}.F_SQL_${column.constantJavaField}, unique = ${column.unique?string}, nullable = ${column.nullable?string}<#if column.javaType = 'String'>, length = ${column.size}</#if>)<#if column.unique>@SearchField</#if><#if column.dictType?? && column.dictType != "">@DictType(name="${column.dictType}")</#if>
 	private ${column.simpleJavaType} ${column.simpleJavaField};
 			</#if>
 		</#if>

@@ -25,19 +25,19 @@ public final class SecurityAuthUtil {
     private SecurityAuthUtil() {
     }
 
-    public static boolean isSystemAdmin() {
-        return SecurityAuthUtil.isSystemAdmin(SecurityUtil.getCurrentUserId());
-    }
+
     public static boolean isSystemAdmin(String id) {
         return "1".equals(id);
     }
 
     public static boolean isAdmin(String id) {
-        boolean admin = false;
-        List<Module> moduleList = SecurityUtil.getModuleList(false, id);
-        for (Module item : moduleList){
-            if(AuthoritiesConstants.ADMIN.equals(item.getPermission())){
-                admin=true;break;
+        boolean admin = isSystemAdmin(id);
+        if(!admin){
+            List<Module> moduleList = SecurityUtil.getModuleList(false, id);
+            for (Module item : moduleList){
+                if(AuthoritiesConstants.ADMIN.equals(item.getPermission())){
+                    admin=true;break;
+                }
             }
         }
         return admin;

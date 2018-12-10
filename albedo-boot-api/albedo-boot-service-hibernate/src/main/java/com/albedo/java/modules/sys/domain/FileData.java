@@ -3,6 +3,7 @@
  */
 package com.albedo.java.modules.sys.domain;
 
+import com.albedo.java.common.persistence.domain.DataUserEntity;
 import com.albedo.java.common.persistence.domain.IdEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,7 +31,7 @@ import javax.validation.constraints.NotNull;
 @DynamicInsert @DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Data @ToString @NoArgsConstructor @AllArgsConstructor
-public class FileData extends IdEntity<String> {
+public class FileData extends DataUserEntity<String> {
 
 	private static final long serialVersionUID = 1L;
 	/** F_NAME name_  :  名称 */

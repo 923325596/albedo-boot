@@ -1,5 +1,6 @@
 package com.albedo.java.modules.sys.domain;
 
+import com.albedo.java.common.persistence.domain.DataUserEntity;
 import com.albedo.java.common.persistence.domain.IdEntity;
 import com.albedo.java.util.PublicUtil;
 import com.albedo.java.util.annotation.DictType;
@@ -32,7 +33,7 @@ import java.util.Set;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @ToString
 @Data
-public class Role extends IdEntity<String> {
+public class Role extends DataUserEntity<String> {
 
     public static final String F_SORT = "sort";
     public static final String F_NAME = "name";
@@ -58,12 +59,6 @@ public class Role extends IdEntity<String> {
     @NotFound(action = NotFoundAction.IGNORE)
     @ApiModelProperty(hidden = true)
     private Org org;
-
-    @ManyToOne
-    @JoinColumn(name = F_SQL_CREATED_BY, updatable = false, insertable = false)
-    @NotFound(action = NotFoundAction.IGNORE)
-    @ApiModelProperty(hidden = true)
-    private User creator;
 
     /*** 是否系统数据  0 是 1否*/
     @Column(name = "sys_data")

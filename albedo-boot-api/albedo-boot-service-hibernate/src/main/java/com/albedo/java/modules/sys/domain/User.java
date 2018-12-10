@@ -1,5 +1,6 @@
 package com.albedo.java.modules.sys.domain;
 
+import com.albedo.java.common.persistence.domain.DataUserEntity;
 import com.albedo.java.common.persistence.domain.IdEntity;
 import com.albedo.java.util.PublicUtil;
 import com.albedo.java.util.annotation.SearchField;
@@ -33,7 +34,7 @@ import java.util.Set;
 @DynamicInsert
 @DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public class User extends IdEntity<String> {
+public class User extends DataUserEntity<String> {
     public static final String F_PHONE = "phone";
     private static final long serialVersionUID = 1L;
     /*** F_LOGINID */

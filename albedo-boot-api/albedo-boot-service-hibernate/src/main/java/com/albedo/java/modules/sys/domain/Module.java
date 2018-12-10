@@ -1,6 +1,7 @@
 package com.albedo.java.modules.sys.domain;
 
 import com.albedo.java.common.persistence.domain.TreeEntity;
+import com.albedo.java.common.persistence.domain.TreeUserEntity;
 import com.albedo.java.util.StringUtil;
 import com.albedo.java.util.annotation.DictType;
 import com.albedo.java.util.annotation.SearchField;
@@ -27,7 +28,7 @@ import javax.persistence.Transient;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @Data
 @EqualsAndHashCode(callSuper=true)
-public class Module extends TreeEntity<Module> {
+public class Module extends TreeUserEntity<Module> {
 
     public static final String F_ID = "id";
     /*** 菜单模块 MENUFLAG = 0 */
