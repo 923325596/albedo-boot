@@ -15,6 +15,7 @@ const getters = {
   refresh_token: state => state.user.refresh_token,
   roles: state => state.user.roles,
   authorities: state => state.user.authorities,
+  dicts: state => state.user.dicts,
   menu: state => state.user.menu,
   errLog: state => state.errLog.errLog
 }

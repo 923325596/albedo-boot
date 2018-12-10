@@ -214,14 +214,12 @@
       this.sys_dict_edit = this.authorities.indexOf("sys_dict_edit") !== -1;
       this.sys_dict_lock = this.authorities.indexOf("sys_dict_lock") !== -1;
       this.sys_dict_delete = this.authorities.indexOf("sys_dict_delete") !== -1;
-      dictCodes({codes:'sys_status,sys_yes_no'}).then(rs => {
-        this.statusOptions = rs.data[0];
-        this.isShowOptions = rs.data[1];
-      });
+        this.statusOptions = this.dicts["sys_status"];
+        this.isShowOptions = this.dicts["sys_yes_no"];
     },
     computed: {
       ...mapGetters([
-        'authorities'
+        "authorities","dicts"
       ])
     },
     methods: {

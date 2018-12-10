@@ -210,15 +210,12 @@
       this.sys_area_edit = this.authorities.indexOf("sys_area_edit") !== -1;
       this.sys_area_lock = this.authorities.indexOf("sys_area_lock") !== -1;
       this.sys_area_delete = this.authorities.indexOf("sys_area_delete") !== -1;
-
-      dictCodes({codes:'sys_status,sys_area_type'}).then(rs => {
-        this.statusOptions = rs.data[0];
-        this.levelOptions = rs.data[1];
-      });
+      this.statusOptions = this.dicts["sys_status"];
+      this.levelOptions = this.dicts["sys_area_type"];
     },
     computed: {
       ...mapGetters([
-        'authorities'
+        'authorities',"dicts"
       ])
     },
     methods: {

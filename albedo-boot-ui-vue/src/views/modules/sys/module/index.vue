@@ -3409,16 +3409,13 @@
       this.sys_module_edit = this.authorities.indexOf("sys_module_edit") !== -1;
       this.sys_module_lock = this.authorities.indexOf("sys_module_lock") !== -1;
       this.sys_module_delete = this.authorities.indexOf("sys_module_delete") !== -1;
-
-      dictCodes({codes:'sys_status,sys_module_type,sys_request_method'}).then(rs => {
-        this.statusOptions = rs.data[0];
-        this.typeOptions = rs.data[1];
-        this.methodOptions = rs.data[2];
-      });
+      this.statusOptions = this.dicts["sys_status"];
+      this.typeOptions = this.dicts["sys_module_type"];
+      this.methodOptions = this.dicts["sys_request_method"];
     },
     computed: {
       ...mapGetters([
-        "menu",  "authorities"
+        "menu",  "authorities","dicts"
       ])
     },
     methods: {

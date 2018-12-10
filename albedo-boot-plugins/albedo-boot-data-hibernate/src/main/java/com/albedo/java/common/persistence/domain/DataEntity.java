@@ -24,38 +24,44 @@ import java.util.Date;
 public abstract class DataEntity extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
+    public static final String F_SQL_CREATED_BY = "created_by";
+    public static final String F_SQL_CREATED_DATE = "created_date";
+    public static final String F_SQL_LAST_MODIFIED_BY = "last_modified_by";
+    public static final String F_SQL_LAST_MODIFIED_DATE = "last_modified_date";
+    public static final String F_SQL_VERSION = "version_";
+    public static final String F_SQL_DESCRIPTION = "description_";
     @CreatedBy
-    @Column(name = "created_by", nullable = false, length = 50, updatable = false)
+    @Column(name = F_SQL_CREATED_BY, nullable = false, length = 50, updatable = false)
     @JSONField(serialize = false)
     @ApiModelProperty(hidden = true)
     protected String createdBy;
 
     @CreatedDate
-    @Column(name = "created_date", nullable = false)
+    @Column(name = F_SQL_CREATED_DATE, nullable = false)
     @ApiModelProperty(hidden = true)
     protected Date createdDate = PublicUtil.getCurrentDate();
 
     @LastModifiedBy
-    @Column(name = "last_modified_by", length = 50)
+    @Column(name = F_SQL_LAST_MODIFIED_BY, length = 50)
     @ApiModelProperty(hidden = true)
     protected String lastModifiedBy;
 
     @LastModifiedDate
-    @Column(name = "last_modified_date")
+    @Column(name = F_SQL_LAST_MODIFIED_DATE)
     @ApiModelProperty(hidden = true)
     protected Date lastModifiedDate = PublicUtil.getCurrentDate();
 
     /*** 默认0，必填，离线乐观锁 */
     @Version
-    @Column(name = "version_")
+    @Column(name = F_SQL_VERSION)
     @JSONField(serialize = false)
     @XmlTransient
     @ApiModelProperty(hidden = true)
     protected Integer version = 0;
 
     /*** 备注 */
-    @Size(min = 0, max = 255)
-    @Column(name = "description_")
+    @Size(max = 255)
+    @Column(name = F_SQL_DESCRIPTION)
     @XmlTransient
     protected String description;
 

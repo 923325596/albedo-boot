@@ -231,8 +231,7 @@ public final class SecurityUtil {
     public static List<Org> getOrgList() {
         List<Org> orgList = getCacheJsonArray(CACHE_ORG_LIST, Org.class);
         if (PublicUtil.isEmpty(orgList)) {
-
-            orgList = orgService.findAllList(SecurityUtil.isAdmin(),
+            orgList = orgService.findAllList(SecurityUtil.isAdmin() || SecurityAuthUtil.isSystemAdmin(),
                 SecurityUtil.dataScopeFilter(getCurrentUserId(), "this", ""));
             putCache(CACHE_ORG_LIST, Json.toJsonString(orgList));
         }

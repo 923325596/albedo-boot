@@ -120,16 +120,13 @@
       this.getList()
       this.sys_org_edit = this.authorities.indexOf("sys_org_edit") !== -1;
       this.sys_org_delete = this.authorities.indexOf("sys_org_delete") !== -1;
-
-      dictCodes({codes:'sys_status,sys_org_type,sys_org_grade'}).then(rs => {
-        this.statusOptions = rs.data[0];
-        this.typeOptions = rs.data[1];
-        this.gradeOptions = rs.data[2];
-      });
+      this.statusOptions = this.dicts['sys_status'];
+      this.typeOptions = this.dicts['sys_org_type'];
+      this.gradeOptions = this.dicts['sys_org_grade'];
     },
     computed: {
       ...mapGetters([
-        'authorities'
+        'authorities',"dicts"
       ])
     },
     methods: {

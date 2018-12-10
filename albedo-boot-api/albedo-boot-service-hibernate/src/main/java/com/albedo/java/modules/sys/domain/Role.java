@@ -9,6 +9,8 @@ import com.alibaba.fastjson.annotation.JSONField;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Data;
+import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.*;
@@ -29,6 +31,7 @@ import java.util.Set;
 @DynamicUpdate
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @ToString
+@Data
 public class Role extends IdEntity<String> {
 
     public static final String F_SORT = "sort";
@@ -55,6 +58,12 @@ public class Role extends IdEntity<String> {
     @NotFound(action = NotFoundAction.IGNORE)
     @ApiModelProperty(hidden = true)
     private Org org;
+
+    @ManyToOne
+    @JoinColumn(name = F_SQL_CREATED_BY, updatable = false, insertable = false)
+    @NotFound(action = NotFoundAction.IGNORE)
+    @ApiModelProperty(hidden = true)
+    private User creator;
 
     /*** 是否系统数据  0 是 1否*/
     @Column(name = "sys_data")
@@ -122,81 +131,6 @@ public class Role extends IdEntity<String> {
         this.name = name;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-
-    public Integer getSysData() {
-        return sysData;
-    }
-
-    public void setSysData(Integer sysData) {
-        this.sysData = sysData;
-    }
-
-    public Integer getDataScope() {
-        return dataScope;
-    }
-
-    public void setDataScope(Integer dataScope) {
-        this.dataScope = dataScope;
-    }
-
-
-    public Set<Module> getModules() {
-        return modules;
-    }
-
-    public void setModules(Set<Module> modules) {
-        this.modules = modules;
-    }
-
-    public Integer getSort() {
-        return sort;
-    }
-
-    public void setSort(Integer sort) {
-        this.sort = sort;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getEn() {
-        return en;
-    }
-
-    public void setEn(String en) {
-        this.en = en;
-    }
-
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
-    public Set<Org> getOrgs() {
-        return orgs;
-    }
-
-    public void setOrgs(Set<Org> orgs) {
-        this.orgs = orgs;
-    }
-
 
     public List<String> getOrgIdList() {
         if (PublicUtil.isEmpty(orgIdList) && PublicUtil.isNotEmpty(orgs)) {
@@ -249,22 +183,5 @@ public class Role extends IdEntity<String> {
     public String getModuleIds() {
         return Collections3.convertToString(getModuleIdList(), ",");
     }
-
-    public String getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(String orgId) {
-        this.orgId = orgId;
-    }
-
-    public Org getOrg() {
-        return org;
-    }
-
-    public void setOrg(Org org) {
-        this.org = org;
-    }
-
 
 }

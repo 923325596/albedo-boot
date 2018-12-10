@@ -1,5 +1,6 @@
 package com.albedo.java.common.security.service;
 
+import com.albedo.java.common.AuthoritiesConstants;
 import com.albedo.java.common.config.ApplicationProperties;
 import com.albedo.java.common.security.SecurityConstants;
 import com.albedo.java.modules.sys.domain.Dict;
@@ -184,7 +185,7 @@ public class InvocationSecurityMetadataSourceService
         }
 
         if (rqurl.startsWith(contextPath+ applicationProperties.getAdminPath())) {
-            return Lists.newArrayList(new SecurityConfig("user"));
+            return Lists.newArrayList(new SecurityConfig(AuthoritiesConstants.USER));
         }
 
         return null;

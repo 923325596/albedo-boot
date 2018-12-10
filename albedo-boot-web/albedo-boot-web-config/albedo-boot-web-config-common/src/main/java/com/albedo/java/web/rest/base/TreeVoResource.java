@@ -40,9 +40,9 @@ public class TreeVoResource<Service extends TreeVoService, V extends TreeEntityV
      */
     @GetMapping("/{id:" + Globals.LOGIN_REGEX + "}")
     @Timed
-    public ResponseEntity get(@PathVariable String id) {
+    public ResponseEntity<V> get(@PathVariable String id) {
         log.debug("REST request to get Entity : {}", id);
-        return ResultBuilder.wrapOrNotFound(Optional.ofNullable(service.findOneVo(id)));
+        return (ResponseEntity<V>) ResultBuilder.wrapOrNotFound(Optional.ofNullable(service.findOneVo(id)));
     }
 
     @ResponseBody

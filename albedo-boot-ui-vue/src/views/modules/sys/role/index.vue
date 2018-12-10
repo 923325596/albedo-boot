@@ -257,14 +257,12 @@
     fetchOrgTree().then(response => {
       this.treeOrgData = parseTreeData(response.data);
     })
-    dictCodes({codes:'sys_yes_no,sys_status,sys_role_scope'}).then(rs => {
-      this.sysDataOptions = rs.data[0];
-      this.statusOptions = rs.data[1];
-      this.dataScopeOptions = rs.data[2];
-    });
+      this.sysDataOptions = this.dicts['sys_yes_no'];
+      this.statusOptions = this.dicts['sys_status'];
+      this.dataScopeOptions = this.dicts['sys_role_scope'];
   },
   computed: {
-    ...mapGetters(["authorities"])
+    ...mapGetters(["authorities","dicts"])
   },
   methods: {
     getList() {

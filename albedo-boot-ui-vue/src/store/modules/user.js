@@ -21,6 +21,7 @@ import {
 import {
   menus
 } from '@/api/dataSystem'
+import {dictCodes} from "../../api/dataSystem";
 const user = {
   state: {
     userInfo: getStore({
@@ -28,6 +29,9 @@ const user = {
     }) || {},
     authorities: getStore({
       name: 'authorities'
+    }) || [],
+    dicts: getStore({
+      name: 'dicts'
     }) || [],
     roles: getStore({
       name: 'roles'
@@ -115,6 +119,14 @@ const user = {
         }).catch(error => {
           reject(error)
         })
+        dictCodes().then(response => {
+          console.log("dictCodes"+response)
+          const data = response.data;
+          commit('SET_DICTS', data)
+          resolve(response)
+        }).catch(error => {
+          reject(error)
+        })
       })
     },
     // 登出
@@ -128,6 +140,7 @@ const user = {
           commit('SET_MENU', [])
           // 清除权限
           commit('SET_AUTHORITIES', [])
+          commit('SET_DICTS', [])
           // 清除用户信息
           commit('SET_USER_INFO', {})
           commit('SET_ACCESS_TOKEN', '')
@@ -150,6 +163,7 @@ const user = {
         commit('SET_MENU', [])
         // 清除权限
         commit('SET_AUTHORITIES', [])
+        commit('SET_DICTS', [])
         // 清除用户信息
         commit('SET_USER_INFO', {})
         commit('SET_ACCESS_TOKEN', '')
@@ -253,7 +267,16 @@ const user = {
         content: state.authorities,
         type: 'session'
       })
-    }
+    },
+    SET_DICTS: (state, dicts) => {
+      console.log("SET_DICTS:"+dicts)
+      state.dicts = dicts
+      setStore({
+        name: 'dicts',
+        content: state.dicts,
+        type: 'session'
+      })
+    },
   }
 }
 export default user

@@ -180,7 +180,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['authorities'])
+    ...mapGetters(["authorities","dicts"])
   },
   filters: {
   },
@@ -189,12 +189,9 @@ export default {
     this.sys_taskScheduleJob_edit = this.authorities.indexOf("sys_taskScheduleJob_edit") !== -1;
     this.sys_taskScheduleJob_lock = this.authorities.indexOf("sys_taskScheduleJob_lock") !== -1;
     this.sys_taskScheduleJob_delete = this.authorities.indexOf("sys_taskScheduleJob_delete") !== -1;
-
-    dictCodes({codes:'sys_yes_no,sys_yes_no,sys_status,'}).then(response => {
-      this.jobStatusOptions = response.data[0];
-      this.isConcurrentOptions = response.data[1];
-      this.statusOptions = response.data[2];
-    });
+    this.jobStatusOptions = this.dicts["sys_yes_no"];
+    this.isConcurrentOptions = this.dicts["sys_yes_no"];
+    this.statusOptions = this.dicts["sys_status"];
   },
   methods: {
     getList() {
@@ -204,7 +201,7 @@ export default {
       {fieldName: 'name',value:this.listQuery.name,operate:'like',attrType:'String'},
       ])
       pageTaskScheduleJob(this.listQuery).then(response => {
-        this.list = response.data;
+        this.list = this.dicts;
         this.total = response.total;
         this.listLoading = false;
       });
@@ -228,7 +225,7 @@ export default {
         this.dialogFormVisible = true;
       }else{
         findTaskScheduleJob(row.id).then(response => {
-          this.form = response.data;
+          this.form = this.dicts;
           this.form.status=objectToString(this.form.status)
           this.form.isConcurrent=objectToString(this.form.isConcurrent)
           this.dialogFormVisible = true;

@@ -20,10 +20,9 @@ public class CustomizeAccessDecisionManager implements AccessDecisionManager {
         if (configAttributes == null) {
             return;
         }
-        if (SecurityAuthUtil.isAdmin(SecurityUtil.getCurrentUserId())) {
+        if (SecurityAuthUtil.isAdmin(SecurityUtil.getCurrentUserId())||SecurityAuthUtil.isSystemAdmin()) {
             return;
         }
-
 
         Iterator<ConfigAttribute> ite = configAttributes.iterator();
 

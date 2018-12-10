@@ -25,6 +25,9 @@ public final class SecurityAuthUtil {
     private SecurityAuthUtil() {
     }
 
+    public static boolean isSystemAdmin() {
+        return SecurityAuthUtil.isSystemAdmin(SecurityUtil.getCurrentUserId());
+    }
     public static boolean isSystemAdmin(String id) {
         return "1".equals(id);
     }

@@ -61,7 +61,7 @@ public class UserResource extends DataVoResource<UserService, UserVo> {
      * @param pm
      */
     @GetMapping(value = "/")
-    public ResponseEntity<CustomMessage> getPage(PageModel pm) {
+    public ResponseEntity getPage(PageModel pm) {
         pm = service.findPage(pm, SecurityUtil.dataScopeFilterSql("d", "a"));
         JSON rs = JsonUtil.getInstance().setFreeFilters("roleIdList").setRecurrenceStr("org_name").toJsonObject(pm);
         return ResultBuilder.buildObject(rs);
@@ -75,7 +75,7 @@ public class UserResource extends DataVoResource<UserService, UserVo> {
      */
     @GetMapping("/authorities")
     @Timed
-    public ResponseEntity<CustomMessage> authorities() {
+    public ResponseEntity authorities() {
         String id = SecurityUtil.getCurrentUserId();
         log.debug("REST request to authorities  : {}", id);
         return ResultBuilder.buildOk(SecurityUtil.getModuleList().stream().map(item -> moduleService.copyBeanToVo(item)).collect(Collectors.toList()));
@@ -126,7 +126,7 @@ public class UserResource extends DataVoResource<UserService, UserVo> {
      */
     @DeleteMapping(value = "/{ids:" + Globals.LOGIN_REGEX + "}")
     @Timed
-    public ResponseEntity<CustomMessage> delete(@PathVariable String ids) {
+    public ResponseEntity delete(@PathVariable String ids) {
         log.debug("REST request to delete User: {}", ids);
         service.deleteBatchIds(Lists.newArrayList(ids.split(StringUtil.SPLIT_DEFAULT)));
         SecurityUtil.clearUserJedisCache();
@@ -142,7 +142,7 @@ public class UserResource extends DataVoResource<UserService, UserVo> {
      */
     @PutMapping(value = "/{ids:" + Globals.LOGIN_REGEX + "}")
     @Timed
-    public ResponseEntity<CustomMessage> lockOrUnLock(@PathVariable String ids) {
+    public ResponseEntity lockOrUnLock(@PathVariable String ids) {
         log.debug("REST request to lockOrUnLock User: {}", ids);
         service.lockOrUnLock(Lists.newArrayList(ids.split(StringUtil.SPLIT_DEFAULT)));
         SecurityUtil.clearUserJedisCache();
@@ -152,7 +152,7 @@ public class UserResource extends DataVoResource<UserService, UserVo> {
 
     @PostMapping(value = "/uploadData")
     @Timed
-    public ResponseEntity<CustomMessage> uploadData(@RequestParam("uploadFile") MultipartFile dataFile, HttpServletResponse response) throws IOException, InvalidFormatException, IllegalAccessException, InstantiationException {
+    public ResponseEntity uploadData(@RequestParam("uploadFile") MultipartFile dataFile, HttpServletResponse response) throws IOException, InvalidFormatException, IllegalAccessException, InstantiationException {
         if(dataFile.isEmpty()){
             return ResultBuilder.buildFailed("上传文件为空");
         }
