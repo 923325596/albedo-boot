@@ -4,13 +4,10 @@
     <div class="filter-container">
       <el-form :inline="true">
         <el-form-item label="用户名">
-          <el-input class="filter-item input-normal" v-model="listQuery.loginId"></el-input>
+          <el-input class="filter-item input-normal" v-model="query.loginId"></el-input>
         </el-form-item>
         <el-form-item label="邮箱">
-          <el-input class="filter-item input-normal" v-model="listQuery.email"></el-input>
-        </el-form-item>
-        <el-form-item label="角色">
-          <AvueCrudSelect v-model="listQuery.roleIdList" :multiple="true" :filterable="true" :dic="rolesOptions"></AvueCrudSelect>
+          <el-input class="filter-item input-normal" v-model="query.email"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button class="filter-item" type="primary" v-waves icon="el-icon-search" @click="handleFilter">查询</el-button>
@@ -199,6 +196,7 @@ export default {
       list: null,
       total: null,
       listLoading: true,
+      query:{},
       listQuery: {
         page: 1,
         size: 20
@@ -282,9 +280,9 @@ export default {
       this.listLoading = true;
       this.listQuery.isAsc = false;
       this.listQuery.queryConditionJson = parseJsonItemForm([{
-        fieldName: 'loginId',value:this.listQuery.loginId
+        fieldName: 'loginId',value:this.query.loginId
       },{
-        fieldName: 'email',value:this.listQuery.email
+        fieldName: 'email',value:this.query.email
       }])
       pageUser(this.listQuery).then(response => {
         this.list = response.data;

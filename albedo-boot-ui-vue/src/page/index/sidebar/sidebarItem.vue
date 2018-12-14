@@ -78,7 +78,4 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
-  .section-text{line-height: 32px;height: 32px;color:#909399 !important;}
-</style>
 

@@ -316,7 +316,7 @@ export const parseJsonItemForm = function (formItems) {
         endValue:'',
       }
     }else{
-      filterItem = jQuery.extend(true,{
+      filterItem = Object.assign({
         format:'',
         fieldName:'',
         attrType:'String',

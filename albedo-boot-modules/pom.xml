@@ -12,8 +12,6 @@
     <artifactId>albedo-boot-modules</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <!--<module>albedo-boot-cloud-micro</module>-->
-        <!--<module>albedo-boot-cloud-gateway</module>-->
         <module>albedo-boot-web-starter</module>
     </modules>
 

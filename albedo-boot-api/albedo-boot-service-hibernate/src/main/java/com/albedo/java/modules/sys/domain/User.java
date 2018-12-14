@@ -106,7 +106,7 @@ public class User extends DataUserEntity<String> {
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id_")},
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id_")})
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-    @ApiModelProperty(hidden = true)
+    @ApiModelProperty(hidden = true) @JSONField(serialize = false)
     private Set<Role> roles = Sets.newHashSet();
 
     @JSONField(serialize = false)
