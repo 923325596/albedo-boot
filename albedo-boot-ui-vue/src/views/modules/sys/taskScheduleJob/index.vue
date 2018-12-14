@@ -20,7 +20,7 @@
       </el-table-column>
       <el-table-column align="center" label="分组">
         <template slot-scope="scope">
-          <span>{{scope.row.jobGroup}}</span>
+          <span>{{scope.row.group}}</span>
         </template>
       </el-table-column>
       <el-table-column align="center" label="任务状态">
@@ -63,7 +63,7 @@
           <span>{{scope.row.methodParams}}</span>
         </template>
       </el-table-column>
-      <el-table-column align="center" fixed="right" label="操作" v-if="sys_taskScheduleJob_edit || sys_taskScheduleJob_delete">
+      <el-table-column align="center" fixed="right" label="操作" v-if="sys_taskScheduleJob_edit || sys_taskScheduleJob_lock || sys_taskScheduleJob_delete">
         <template slot-scope="scope">
           <el-button v-if="sys_taskScheduleJob_edit" icon="icon-edit" title="编辑" type="text" @click="handleEdit(scope.row)">
           </el-button>
@@ -86,8 +86,8 @@
         <el-form-item label="名称" prop="name" :rules="[{required: true,message: '请输入名称'},{min: 0,max: 255,message: '长度在 0 到 255 个字符'},]">
                 <el-input v-model="form.name"></el-input>
         </el-form-item>
-        <el-form-item label="分组" prop="jobGroup" :rules="[{required: true,message: '请输入分组'},{min: 0,max: 255,message: '长度在 0 到 255 个字符'},]">
-                <el-input v-model="form.jobGroup"></el-input>
+        <el-form-item label="分组" prop="group" :rules="[{required: true,message: '请输入分组'},{min: 0,max: 255,message: '长度在 0 到 255 个字符'},]">
+                <el-input v-model="form.group"></el-input>
         </el-form-item>
         <el-form-item label="任务状态" prop="jobStatus" :rules="[{required: true,message: '请输入任务状态'},{min: 0,max: 255,message: '长度在 0 到 255 个字符'},]">
               <AvueCrudSelect v-model="form.jobStatus" :dic="jobStatusOptions"></AvueCrudSelect>
@@ -129,12 +129,7 @@
 import { pageTaskScheduleJob, findTaskScheduleJob, saveTaskScheduleJob, lockTaskScheduleJob, removeTaskScheduleJob } from "./service";
 import { mapGetters } from "vuex";
 import {DATA_STATUS} from "@/const/common";
-import {
-  isValidateUnique,
-  objectToString, toStr,
-  validateNull
-} from "@/util/validate";
-import {dictCodes} from "@/api/dataSystem";
+import {isValidateUnique, isValidateNumber, isValidateDigits, objectToString, toStr, validateNull} from "@/util/validate";
 import {MSG_TYPE_SUCCESS} from "@/const/common";
 import {parseJsonItemForm} from "@/util/util";
 
@@ -153,7 +148,7 @@ export default {
       },
       form: {
         name: undefined,
-        jobGroup: undefined,
+        group: undefined,
         jobStatus: undefined,
         cronExpression: undefined,
         beanClass: undefined,
@@ -165,8 +160,14 @@ export default {
         description: undefined,
       },
       validateUnique: (rule, value, callback) => {
-        isValidateUnique(rule, value, callback, '/sys/taskScheduleJob/checkByProperty?id='+toStr(this.form.id))
-      },
+          isValidateUnique(rule, value, callback, '/test/testTree/checkByProperty?id='+toStr(this.form.id))
+        },
+        validateNumber: (rule, value, callback) => {
+          isValidateNumber(rule, value, callback)
+        },
+        validateDigits: (rule, value, callback) => {
+          isValidateDigits(rule, value, callback)
+        },
       jobStatusOptions: undefined,
       isConcurrentOptions: undefined,
       statusOptions: undefined,
@@ -201,7 +202,7 @@ export default {
       {fieldName: 'name',value:this.listQuery.name,operate:'like',attrType:'String'},
       ])
       pageTaskScheduleJob(this.listQuery).then(response => {
-        this.list = this.dicts;
+        this.list = response.data;
         this.total = response.total;
         this.listLoading = false;
       });
@@ -225,9 +226,8 @@ export default {
         this.dialogFormVisible = true;
       }else{
         findTaskScheduleJob(row.id).then(response => {
-          this.form = this.dicts;
+          this.form = response.data;
           this.form.status=objectToString(this.form.status)
-          this.form.isConcurrent=objectToString(this.form.isConcurrent)
           this.dialogFormVisible = true;
         });
       }
@@ -285,7 +285,7 @@ export default {
     resetForm() {
       this.form = {
         name: "",
-        jobGroup: "",
+        group: "",
         jobStatus: "",
         cronExpression: "",
         beanClass: "",

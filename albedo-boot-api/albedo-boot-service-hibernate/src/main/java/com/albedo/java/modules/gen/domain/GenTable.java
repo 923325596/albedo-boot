@@ -10,6 +10,7 @@ import com.albedo.java.util.base.Collections3;
 import com.albedo.java.util.config.SystemConfig;
 import com.albedo.java.util.exception.RuntimeMsgException;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.*;
@@ -55,12 +56,14 @@ public class GenTable extends DataUserEntity<String> {
     @OrderBy("sort_")
     @Fetch(FetchMode.SUBSELECT)
     @JSONField(serialize = false)
+    @JsonIgnore
     private List<GenTableColumn> columnList; // 表列
 
     @ManyToOne(targetEntity = GenTable.class, fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_table", referencedColumnName = "name_", nullable = true, insertable = false, updatable = false)
     @NotFound(action = NotFoundAction.IGNORE)
     @JSONField(serialize = false)
+    @JsonIgnore
     private GenTable parent; // 父表对象
 //    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "parent", targetEntity = GenTable.class)
 //    @Where(clause = "status_ = 0")
@@ -74,14 +77,17 @@ public class GenTable extends DataUserEntity<String> {
     private String nameLike; // 按名称模糊查询
     @Transient
     @JSONField(serialize = false)
+    @JsonIgnore
     private List<String> pkList; // 当前表主键列表
     @Transient
     @JSONField(serialize = false)
+    @JsonIgnore
     private List<GenTableColumn> pkColumnList; // 当前表主键列表
     @Transient
     private String category; // 当前表的生成分类
     @Transient
     @JSONField(serialize = false)
+    @JsonIgnore
     private List<GenTableColumn> columnFormList;
 
     public GenTable() {
@@ -469,6 +475,7 @@ public class GenTable extends DataUserEntity<String> {
      *
      * @return
      */
+    @JsonIgnore
     public GenTableColumn getPkColumn() {
         if (isNotCompositeId()) {
             for (GenTableColumn column : getColumnList()) {

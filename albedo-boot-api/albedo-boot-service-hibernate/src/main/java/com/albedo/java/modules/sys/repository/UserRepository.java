@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface UserRepository extends DataRepository<User, String> {
 
 
-    String USERS_BY_LOGIN_CACHE = "usersByLogin";
+    String USERS_BY_LOGIN_CACHE = "usersByLogin1";
 
     Optional<User> findOneByActivationKey(String activationKey);
 

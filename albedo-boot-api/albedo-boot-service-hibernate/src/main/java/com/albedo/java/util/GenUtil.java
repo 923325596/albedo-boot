@@ -280,12 +280,12 @@ public class GenUtil {
         Map<String, Object> model = Maps.newHashMap();
         String applicationId = SpringContextHolder.getApplicationContext().getId();
         if(PublicUtil.isNotEmpty(applicationId)){
-            String substring = applicationId.substring(0, applicationId.indexOf(":"));
             try{
+                String substring = applicationId.substring(0, applicationId.indexOf(":"));
                 String applicationName = SpringContextHolder.getApplicationContext().getBean(substring).getClass().getName();
                 model.put("applicationName", applicationName);
             }catch (Exception e){
-                model.put("applicationName", substring);
+                model.put("applicationName", applicationId);
             }
         }
         model.put("packageName", StringUtil.lowerCase(genScheme.getPackageName()));
