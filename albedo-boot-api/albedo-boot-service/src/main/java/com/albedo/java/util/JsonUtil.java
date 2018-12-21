@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
+import java.sql.Timestamp;
 import java.time.ZonedDateTime;
 import java.util.*;
 
@@ -458,8 +459,9 @@ public class JsonUtil extends JSON {
                         List<String> argList = Lists.newArrayList(clsName);
                         key = PublicUtil.toAppendStr(Collections3.convertToString(argList, "_"), "_", key);
                     }
+                    String saveKey = getKey(key, jf);
                     if (PublicUtil.isEmpty(val) && jf != null && jf.serialzeFeatures() != null) {
-                        mapPutValue(maps, getKey(key, jf), val);
+                        mapPutValue(maps, saveKey, val);
                     }
                     if (val instanceof Collection<?> && flag) {
                         Iterator<?> iter = ((Collection<?>) val).iterator();
@@ -473,7 +475,7 @@ public class JsonUtil extends JSON {
                                 list.add(isBaseType ? objTemp : toJsonObject(objTemp));
                             }
                         }
-                        mapPutValue(maps, getKey(key, jf), list);
+                        mapPutValue(maps, saveKey, list);
                     } else {
                         boolean falg = false;
                         try {
@@ -513,7 +515,15 @@ public class JsonUtil extends JSON {
                             }
                             continue;
                         }
-                        mapPutValue(maps, getKey(key, jf), getVal(obj, val, key));
+                        Object saveVal = getVal(obj, val, key);
+                        if (PublicUtil.isNotEmpty(saveVal) && PublicUtil.isNotEmpty(val)
+                            && !saveVal.equals(val) && !(val instanceof Timestamp) && !(val instanceof Date)) {
+                            mapPutValue(maps, saveKey, val);
+                            mapPutValue(maps, saveKey+"Text", saveVal);
+                        }else{
+                            mapPutValue(maps, saveKey, saveVal);
+                        }
+
                     }
                 }
             }
@@ -599,22 +609,25 @@ public class JsonUtil extends JSON {
     }
 
     private Object getVal(Object obj, Object val, String key) {
-
+        Object rs = null;
         if (PublicUtil.isNotEmpty(kindIdMap) && kindIdMap.containsValue(key)) {
-            val = getDictVal(val, getKindIdMapByField(key), key);
+            rs = getDictVal(val, getKindIdMapByField(key), key);
         } else {
             Object temp = getFieldDictValue(obj, key);
             if (temp != null) {
-                val = temp;
+                rs = temp;
             }
         }
         if (val instanceof Date) {
-            val = PublicUtil.fmtDate((Date) val, dateFormart);
+            rs = PublicUtil.fmtDate((Date) val, dateFormart);
         }
         if (val instanceof ZonedDateTime) {
-            val = PublicUtil.fmtDate((ZonedDateTime) val, dateFormart);
+            rs = PublicUtil.fmtDate((ZonedDateTime) val, dateFormart);
         }
-        return val;
+        if(rs==null){
+            rs = val;
+        }
+        return rs;
     }
 
 }
