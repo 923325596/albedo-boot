@@ -36,19 +36,19 @@
 
       <el-table-column align="center" label="是否系统数据">
         <template slot-scope="scope">
-          <span>{{scope.row.sysData}}</span>
+          <span>{{scope.row.sysDataText}}</span>
         </template>
       </el-table-column>
 
       <el-table-column align="center" class-name="status-col" label="数据范围">
         <template slot-scope="scope">
-          <el-tag>{{scope.row.dataScope}}</el-tag>
+          <el-tag>{{scope.row.dataScopeText}}</el-tag>
         </template>
       </el-table-column>
 
       <el-table-column align="center" class-name="status-col" label="状态">
         <template slot-scope="scope">
-          <el-tag>{{scope.row.status}}</el-tag>
+          <el-tag>{{scope.row.statusText}}</el-tag>
         </template>
       </el-table-column>
 

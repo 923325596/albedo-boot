@@ -60,7 +60,7 @@
 
           <el-table-column align="center" label="等级">
             <template slot-scope="scope">
-              <span>{{scope.row.level}}</span>
+              <span>{{scope.row.levelText}}</span>
             </template>
           </el-table-column>
           <el-table-column align="center" label="序号">
@@ -70,7 +70,7 @@
           </el-table-column>
           <el-table-column align="center" class-name="status-col" label="状态">
             <template slot-scope="scope">
-              <el-tag>{{scope.row.status}}</el-tag>
+              <el-tag>{{scope.row.statusText}}</el-tag>
             </template>
           </el-table-column>
           <el-table-column prop="lastModifiedDate" align="center" label="更新时间" :sortable="true">

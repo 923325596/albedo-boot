@@ -69,7 +69,7 @@
           </el-table-column>
           <el-table-column align="center" class-name="status-col" label="状态">
             <template slot-scope="scope">
-              <el-tag>{{scope.row.status}}</el-tag>
+              <el-tag>{{scope.row.statusText}}</el-tag>
             </template>
           </el-table-column>
           <el-table-column align="center" label="更新时间">
