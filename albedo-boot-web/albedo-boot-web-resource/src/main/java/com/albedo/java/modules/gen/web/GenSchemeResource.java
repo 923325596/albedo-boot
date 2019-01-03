@@ -69,16 +69,16 @@ public class GenSchemeResource extends DataVoResource<GenSchemeService, GenSchem
     public ResponseEntity save(@Valid @RequestBody GenSchemeVo genSchemeVo) {
         service.save(genSchemeVo);
         SecurityUtil.clearUserJedisCache();
+        GenTableVo genTableVo = genSchemeVo.getGenTable();
+        if (genTableVo == null || PublicUtil.isEmpty(genTableVo.getClassName())) {
+            genTableVo = genTableService.findOneVo(genSchemeVo.getGenTableId());
+        }
         if (genSchemeVo.getSyncModule()) {
-            GenTableVo genTableVo = genSchemeVo.getGenTable();
-            if (genTableVo == null || PublicUtil.isEmpty(genTableVo.getClassName())) {
-                genTableVo = genTableService.findOneVo(genSchemeVo.getGenTableId());
-            }
             String url = PublicUtil.toAppendStr("/", StringUtil.lowerCase(genSchemeVo.getModuleName()), (StringUtil.isNotBlank(genSchemeVo.getSubModuleName()) ? "/" + StringUtil.lowerCase(genSchemeVo.getSubModuleName()) : ""), "/",
                 StringUtil.uncapitalize(genTableVo.getClassName()), "/");
             moduleService.generatorModuleData(genSchemeVo.getName(), genSchemeVo.getParentModuleId(), url);
             SecurityUtil.clearUserJedisCache();
-        }
+
         // 生成代码
         if (genSchemeVo.getGenCode()) {
             service.generateCode(genSchemeVo);
