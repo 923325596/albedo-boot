@@ -78,7 +78,7 @@ public class GenSchemeResource extends DataVoResource<GenSchemeService, GenSchem
                 StringUtil.uncapitalize(genTableVo.getClassName()), "/");
             moduleService.generatorModuleData(genSchemeVo.getName(), genSchemeVo.getParentModuleId(), url);
             SecurityUtil.clearUserJedisCache();
-
+        }
         // 生成代码
         if (genSchemeVo.getGenCode()) {
             service.generateCode(genSchemeVo);
