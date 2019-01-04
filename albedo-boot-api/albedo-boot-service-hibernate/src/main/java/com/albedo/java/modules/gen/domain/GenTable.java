@@ -52,7 +52,7 @@ public class GenTable extends DataUserEntity<String> {
 
     @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.EAGER)
     @JoinColumn(name = "gen_table_id")
-    @Where(clause = "status_ = 0")
+    @Where(clause = "status_ = 1")
     @OrderBy("sort_")
     @Fetch(FetchMode.SUBSELECT)
     @JSONField(serialize = false)
@@ -66,7 +66,7 @@ public class GenTable extends DataUserEntity<String> {
     @JsonIgnore
     private GenTable parent; // 父表对象
 //    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE}, fetch = FetchType.LAZY, mappedBy = "parent", targetEntity = GenTable.class)
-//    @Where(clause = "status_ = 0")
+//    @Where(clause = "status_ = 1")
 //    @Fetch(FetchMode.SUBSELECT)
 //    @JSONField(serialize = false)
 //    private List<GenTable> childList = Lists.newArrayList(); // 子表列表

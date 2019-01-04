@@ -36,7 +36,7 @@
         LEFT JOIN sys_role_t r on r.id_=rm.role_id
         LEFT JOIN sys_user_role_t ur on ur.role_id=r.id_
         LEFT JOIN sys_user_t u ON u.id_=ur.user_id and u.id_ = #{userId}
-        WHERE a.status_ = 0 AND r.status_ = 0 AND u.status_ = 0
+        WHERE a.status_ = 1 AND r.status_ = 1 AND u.status_ = 1
         ORDER BY a.sort_
     </select>
 

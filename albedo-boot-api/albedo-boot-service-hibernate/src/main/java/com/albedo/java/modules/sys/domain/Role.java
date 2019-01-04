@@ -91,7 +91,7 @@ public class Role extends DataUserEntity<String> {
 
     /*** 拥有用户列表 */
     @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    @Where(clause = "status_ = 0")
+    @Where(clause = "status_ = 1")
     @OrderBy("created_date")
     @Fetch(FetchMode.SUBSELECT)
     @JSONField(serialize = false)
