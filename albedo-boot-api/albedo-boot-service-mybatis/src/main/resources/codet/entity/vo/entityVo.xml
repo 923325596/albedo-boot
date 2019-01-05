@@ -37,10 +37,6 @@ public class ${ClassName}Vo extends DataEntityVo<${table.pkJavaType}> {
 
 	<@generateFields/>
 
-    public ${ClassName}Vo(${table.pkJavaType} id){
-	    this.setId(id);
-    }
-
 }
 <#macro generateFields>
 	//columns START

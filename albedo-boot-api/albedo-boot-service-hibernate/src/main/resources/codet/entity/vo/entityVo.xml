@@ -39,7 +39,6 @@ public class ${ClassName}Vo extends DataEntityVo<${table.pkColumn.javaType}> {
 	</#list>
 
 	<@generateFields/>
-	<@generateCompositeIdConstructorIfis/>
 
 	@Override
 	public boolean equals(Object obj) {
