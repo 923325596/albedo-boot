@@ -17,7 +17,7 @@ public class GeneralEntityVo<ID extends Serializable> implements Serializable {
     /*** 状态 已删除 */
     public static final Integer FLAG_DELETE = -1;
     /**
-     * 状态（-2：删除；-1：停用 0：正常 1:审核）
+     * 状态（-1：删除；0：停用 1：正常）
      */
     public static final String F_STATUS = "status";
     /*** ID */

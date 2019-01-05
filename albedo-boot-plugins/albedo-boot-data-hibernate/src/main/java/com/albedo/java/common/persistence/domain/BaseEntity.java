@@ -18,10 +18,10 @@ public abstract class BaseEntity extends GeneralEntity {
 
     private static final long serialVersionUID = 1L;
     /**
-     * 状态（-2：删除；-1：停用 0：正常 1:审核）
+     * 状态（-1：删除；0：停用 1：正常）
      */
     public static final String F_STATUS = "status";
-    /*** 状态（-2：删除；-1：停用 0：正常 1:审核） */
+    /*** 状态（-1：删除；0：停用 1：正常） */
     @Column(name = "status_")
     @XmlTransient
     @SearchField
