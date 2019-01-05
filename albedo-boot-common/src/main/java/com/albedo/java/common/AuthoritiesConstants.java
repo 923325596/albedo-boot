@@ -6,8 +6,6 @@ package com.albedo.java.common;
 public final class AuthoritiesConstants {
     /**超级管理员*/
     public static final String ADMIN = "ROLE_ADMIN";
-    /**普通管理员*/
-    public static final String MANAGE = "ROLE_MANAGE";
     /**UA操作员*/
     public static final String NORMAL = "ROLE_NORMAL";
     /**登录权限*/

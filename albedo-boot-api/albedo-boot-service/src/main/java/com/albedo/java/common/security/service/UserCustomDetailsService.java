@@ -55,7 +55,9 @@ public class UserCustomDetailsService implements UserDetailsService {
 
             List<GrantedAuthority> grantedAuthorities = Lists.newArrayList(
                 new SimpleGrantedAuthority(AuthoritiesConstants.USER));
-
+            if(SecurityAuthUtil.isAdmin(user.getId())){
+                grantedAuthorities.add(new SimpleGrantedAuthority(AuthoritiesConstants.ADMIN));
+            }
             SecurityUtil.getModuleList(user.getId()).forEach(authority -> {
                 if (PublicUtil.isNotEmpty(authority.getPermission())) {
                     Lists.newArrayList(authority.getPermission().split(StringUtil.SPLIT_DEFAULT)).forEach(p -> grantedAuthorities.add(new SimpleGrantedAuthority(p)));
