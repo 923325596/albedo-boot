@@ -12,7 +12,7 @@
     <artifactId>albedo-boot-modules</artifactId>
     <packaging>pom</packaging>
     <modules>
-        <module>albedo-boot-web-starter</module>
+        <!--<module>albedo-boot-web-starter</module>-->
     </modules>
 
 

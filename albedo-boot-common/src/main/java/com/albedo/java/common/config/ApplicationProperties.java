@@ -445,6 +445,9 @@ public class ApplicationProperties {
         private final Authentication authentication = new Authentication();
 
         private List<String> authorizes = new ArrayList<>();
+        private List<String> authorizePermitAll = new ArrayList<>();
+        private List<String> authorizeAdminPermitAll = new ArrayList<>();
+
         public Security() {
         }
 
@@ -466,6 +469,22 @@ public class ApplicationProperties {
 
         public void setAuthorizes(List<String> authorizes) {
             this.authorizes = authorizes;
+        }
+
+        public List<String> getAuthorizePermitAll() {
+            return authorizePermitAll;
+        }
+
+        public void setAuthorizePermitAll(List<String> authorizePermitAll) {
+            this.authorizePermitAll = authorizePermitAll;
+        }
+
+        public List<String> getAuthorizeAdminPermitAll() {
+            return authorizeAdminPermitAll;
+        }
+
+        public void setAuthorizeAdminPermitAll(List<String> authorizeAdminPermitAll) {
+            this.authorizeAdminPermitAll = authorizeAdminPermitAll;
         }
 
         public static class RememberMe {

@@ -110,20 +110,21 @@ public class SecurityAutoConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         List<String> authorizes = applicationProperties.getSecurity().getAuthorizes();
+        List<String> authorizeAdminPermitAll = applicationProperties.getSecurity().getAuthorizeAdminPermitAll();
+        authorizeAdminPermitAll.addAll(Lists.newArrayList(SecurityConstants.authorizePermitAll));
+        List<String> authorizePermitAll = applicationProperties.getSecurity().getAuthorizePermitAll();
+        authorizePermitAll.addAll(Lists.newArrayList(SecurityConstants.authorizeAdminPermitAll));
         authorizes.add(applicationProperties.getAdminPath("/**"));
         authorizes.addAll(Lists.newArrayList(SecurityConstants.authorize));
         SecurityConstants.authorize = new String[authorizes.size()];
         authorizes.toArray(SecurityConstants.authorize);
-
         String adminPath = applicationProperties.getAdminPath();
-
-        String[] permissAll = new String[SecurityConstants.authorizePermitAll.length+SecurityConstants.authorizeAdminPermitAll.length];
-
-        for (int i = 0; i < SecurityConstants.authorizePermitAll.length; i++) {
-            permissAll[i] = SecurityConstants.authorizePermitAll[i];
+        String[] permissAll = new String[authorizeAdminPermitAll.size()+authorizePermitAll.size()];
+        for (int i = 0; i < authorizePermitAll.size(); i++) {
+            permissAll[i] = authorizePermitAll.get(i);
         }
-        for (int i = SecurityConstants.authorizePermitAll.length,j=0; i < permissAll.length; i++,j++) {
-            permissAll[i] = adminPath+SecurityConstants.authorizeAdminPermitAll[j];
+        for (int i = authorizePermitAll.size(),j=0; i < permissAll.length; i++,j++) {
+            permissAll[i] = adminPath+authorizeAdminPermitAll.get(j);
         }
 
         http.addFilterBefore(corsFilter, UsernamePasswordAuthenticationFilter.class)
