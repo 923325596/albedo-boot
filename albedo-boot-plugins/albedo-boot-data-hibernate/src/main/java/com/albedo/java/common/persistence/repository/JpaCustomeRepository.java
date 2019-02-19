@@ -1,9 +1,8 @@
 package com.albedo.java.common.persistence.repository;
 
-import com.albedo.java.common.persistence.domain.BaseEntity;
 import com.albedo.java.common.persistence.domain.GeneralEntity;
-import com.albedo.java.util.domain.ComboSearch;
 import com.albedo.java.util.domain.ComboData;
+import com.albedo.java.util.domain.ComboSearch;
 import com.albedo.java.util.domain.PageModel;
 import com.albedo.java.util.domain.QueryCondition;
 import org.hibernate.Session;
@@ -89,7 +88,7 @@ public interface JpaCustomeRepository<T extends GeneralEntity> {
     List findListBySQL(String SQL, Class<T> clazz, Object... params);
 
     Object findObjectBySQL(String SQL, List<QueryCondition> conditionList, Object... params);
-
+    Object findObjectBySQL(String SQL, Class<T> clazz, Object... params);
     Object findObjectBySQL(String SQL, Object... params);
 
 
