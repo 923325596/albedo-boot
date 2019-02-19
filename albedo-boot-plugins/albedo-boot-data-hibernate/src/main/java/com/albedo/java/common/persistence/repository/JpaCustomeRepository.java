@@ -88,7 +88,7 @@ public interface JpaCustomeRepository<T extends GeneralEntity> {
     List findListBySQL(String SQL, Class<T> clazz, Object... params);
 
     Object findObjectBySQL(String SQL, List<QueryCondition> conditionList, Object... params);
-    Object findObjectBySQL(String SQL, Class<T> clazz, Object... params);
+    T findEntityBySQL(String SQL, Class<T> clazz, Object... params);
     Object findObjectBySQL(String SQL, Object... params);
 
 

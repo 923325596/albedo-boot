@@ -426,8 +426,8 @@ public class JpaCustomeRepositoryImpl<T extends GeneralEntity> implements JpaCus
     }
     @Override
     @Transactional(readOnly = true, rollbackFor = Exception.class)
-    public Object findObjectBySQL(String SQL, Class<T> clazz, Object... params) {
-        return findBySQL(SQL, true, false, 0, clazz, null, params);
+    public T findEntityBySQL(String SQL, Class<T> clazz, Object... params) {
+        return (T) findBySQL(SQL, true, false, 0, clazz, null, params);
     }
 
     @Override
